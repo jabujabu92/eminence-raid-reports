@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eminence Raid Reports</title>
+<style>
+  :root {
+    --bg: #0f1115; --panel: #161a21; --border: #262b35; --text: #e8e8ec;
+    --muted: #9a9fac; --gold: #cba135;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding: 3rem 1.5rem;
+  }
+  .wrap { max-width: 40rem; margin: 0 auto; }
+  h1 {
+    font-size: 1.6rem; margin: 0 0 .3rem;
+    font-family: Georgia, "Cinzel", serif; letter-spacing: .02em;
+  }
+  .sub { color: var(--muted); font-size: .88rem; margin: 0 0 2rem; }
+  .team-card {
+    background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--accent);
+    border-radius: 10px; padding: 1.3rem 1.5rem; margin-bottom: 1.2rem;
+  }
+  .team-card h2 { margin: 0 0 .8rem; font-size: 1.15rem; color: var(--accent); }
+  a.latest {
+    display: flex; align-items: center; justify-content: space-between;
+    color: var(--text); text-decoration: none; font-weight: 600; font-size: 1rem;
+    background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 8px;
+    padding: .7rem 1rem;
+  }
+  a.latest:hover { border-color: var(--accent); }
+  a.latest .arrow { color: var(--accent); }
+  details.archive { margin-top: .7rem; color: var(--muted); font-size: .85rem; }
+  details.archive summary { cursor: pointer; }
+  details.archive ul { list-style: none; margin: .5rem 0 0; padding: 0; display: flex; flex-direction: column; gap: .3rem; }
+  details.archive a { color: var(--muted); text-decoration: none; border-bottom: 1px dotted currentColor; }
+  details.archive a:hover { color: var(--text); }
+  footer { margin-top: 2rem; color: var(--muted); font-size: .74rem; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Eminence Raid Reports</h1>
+    <p class="sub">Weekly parse/consumable/death reports for Maize and Blue -- generated automatically every Monday.</p>
+    
+    <section class="team-card" style="--accent: #cba135">
+      <h2>Maize</h2>
+      <a class="latest" href="maize_2026-W34.html">Latest &mdash; 2026-W34<span class="arrow">&#8594;</span></a>
+      <details class="archive"><summary>1 earlier report</summary><ul><li><a href="maize_2026-W33.html">2026-W33</a></li></ul></details>
+    </section>
+    
+    <section class="team-card" style="--accent: #4d8dd4">
+      <h2>Blue</h2>
+      <a class="latest" href="blue_2026-W34.html">Latest &mdash; 2026-W34<span class="arrow">&#8594;</span></a>
+      <details class="archive"><summary>1 earlier report</summary><ul><li><a href="blue_2026-W33.html">2026-W33</a></li></ul></details>
+    </section>
+    
+    <footer>Created by <a href="https://github.com/jabujabu92" style="color:var(--gold)">jabujabu</a></footer>
+  </div>
+</body>
+</html>
