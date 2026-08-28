@@ -459,7 +459,7 @@
   a.d-value { text-decoration: none; border-bottom: 1px dotted currentColor; }
   a.d-value:hover, a.d-value:focus-visible { border-bottom-style: solid; }
   .d-best { color: var(--gold); font-style: normal; margin-top: .1rem; }
-  .consume .no.missing-expected { color: var(--warn); }
+  .consume .no.missing-expected { color: var(--bad); font-weight: 700; }
   /* Which boss(es) Items/Healthstones/Potions were used on (user request,
      2026-08-24) -- informational, not a warning, so muted rather than red. */
   .d-usage { color: var(--muted-dim); font-size: .82rem; font-style: normal; margin-top: .3rem; display: flex; flex-direction: column; gap: .2rem; }
@@ -2676,10 +2676,10 @@
                   <td class="num" data-sort="934">
                     <span class="value-trend"><span>934</span><span class="trend-new">NEW</span></span>
                   </td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Well Fed">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Superior Wizard Oil">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="no" title="Shield, caster off-hand item, or role doesn't need a melee off-hand buff">&mdash;</span></td>
@@ -2719,10 +2719,10 @@
                   <td class="num" data-sort="2093">
                     <span class="value-trend"><span>2,093</span><span class="trend-new">NEW</span></span>
                   </td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Well Fed">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="via-flask" title="Windfury Totem observed on this player -- no self-applied main-hand enchant needed">Windfury</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Deadly Poison VII">&#10003;</span></td>
@@ -2762,10 +2762,10 @@
                   <td class="num" data-sort="846">
                     <span class="value-trend"><span>846</span><span class="trend-new">NEW</span></span>
                   </td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Well Fed">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Brilliant Mana Oil">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="no" title="Shield, caster off-hand item, or role doesn't need a melee off-hand buff">&mdash;</span></td>
@@ -2805,10 +2805,10 @@
                   <td class="num" data-sort="1877">
                     <span class="value-trend"><span>1,877</span><span class="trend-new">NEW</span></span>
                   </td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Mighty Agility">&#10003;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Well Fed">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="via-flask" title="Windfury Totem observed on this player -- no self-applied main-hand enchant needed">Windfury</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Deadly Poison VII">&#10003;</span></td>
@@ -2851,10 +2851,10 @@
                   <td class="consume" data-sort="1"><span class="via-flask" title="Covered by battle + guardian elixir pairing instead of a flask">via elixirs</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Mighty Agility">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Elixir of Major Fortitude">&#10003;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Well Fed">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="via-flask" title="Windfury Totem observed on this player -- no self-applied main-hand enchant needed">Windfury</span></td>
-                  <td class="consume" data-sort="0"><span class="no missing-expected" title="No off-hand weapon buff">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected" title="No off-hand weapon buff">&times;</span></td>
                   <td class="num " data-sort="1" title="Haste @ 0:32.2">1</td>
                   <td class="num zero-count" data-sort="0" title="">0</td>
                   <td class="num " data-sort="1" title="Super Sapper Charge @ 1:23.7">1</td>
@@ -2894,9 +2894,9 @@
                   <td class="consume" data-sort="1"><span class="via-flask" title="Covered by battle + guardian elixir pairing instead of a flask">via elixirs</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Mighty Agility">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Elixir of Draenic Wisdom">&#10003;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Well Fed">&#10003;</span></td>
-                  <td class="consume" data-sort="0"><span class="no missing-expected" title="No main-hand weapon buff, and no Windfury Totem observed on this player">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected" title="No main-hand weapon buff, and no Windfury Totem observed on this player">&times;</span></td>
                   <td class="consume" data-sort="0"><span class="yes" title="Two-handed weapon -- same as Main Hand">&#10003;</span></td>
                   <td class="num zero-count" data-sort="0" title="">0</td>
                   <td class="num zero-count" data-sort="0" title="">0</td>
@@ -2978,12 +2978,12 @@ Agility">&#10003;</span></td>
                   <td class="num" data-sort="503">
                     <span class="value-trend"><span>503</span><span class="trend-new">NEW</span></span>
                   </td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Greater Arcane Elixir">&#10003;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Well Fed">&#10003;</span></td>
-                  <td class="consume" data-sort="0"><span class="no missing-expected" title="No main-hand weapon buff, and no Windfury Totem observed on this player">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected" title="No main-hand weapon buff, and no Windfury Totem observed on this player">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="no" title="Shield, caster off-hand item, or role doesn't need a melee off-hand buff">&mdash;</span></td>
                   <td class="num zero-count" data-sort="0" title="">0</td>
                   <td class="num zero-count" data-sort="0" title="">0</td>
@@ -3021,12 +3021,12 @@ Agility">&#10003;</span></td>
                   <td class="num" data-sort="964">
                     <span class="value-trend"><span>964</span><span class="trend-new">NEW</span></span>
                   </td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no missing-expected" title="No main-hand weapon buff, and no Windfury Totem observed on this player">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected" title="No main-hand weapon buff, and no Windfury Totem observed on this player">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="no" title="Shield, caster off-hand item, or role doesn't need a melee off-hand buff">&mdash;</span></td>
                   <td class="num zero-count" data-sort="0" title="">0</td>
                   <td class="num zero-count" data-sort="0" title="">0</td>
@@ -3064,9 +3064,9 @@ Agility">&#10003;</span></td>
                   <td class="num" data-sort="967">
                     <span class="value-trend"><span>967</span><span class="trend-new">NEW</span></span>
                   </td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Mighty Agility">&#10003;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Strength
 Agility">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Well Fed">&#10003;</span></td>
@@ -3108,11 +3108,11 @@ Agility">&#10003;</span></td>
                   <td class="num" data-sort="1332">
                     <span class="value-trend"><span>1,332</span><span class="trend-new">NEW</span></span>
                   </td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Spellpower Elixir">&#10003;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Brilliant Wizard Oil">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="no" title="Shield, caster off-hand item, or role doesn't need a melee off-hand buff">&mdash;</span></td>
                   <td class="num zero-count" data-sort="0" title="">0</td>
@@ -3151,10 +3151,10 @@ Agility">&#10003;</span></td>
                   <td class="num" data-sort="1691">
                     <span class="value-trend"><span>1,691</span><span class="trend-new">NEW</span></span>
                   </td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Elixir of the Mongoose">&#10003;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Well Fed">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Windfury 5">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Windfury 5">&#10003;</span></td>
@@ -3194,10 +3194,10 @@ Agility">&#10003;</span></td>
                   <td class="num" data-sort="1674">
                     <span class="value-trend"><span>1,674</span><span class="trend-new">NEW</span></span>
                   </td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Well Fed">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Windfury 5">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Windfury 5">&#10003;</span></td>
@@ -3240,7 +3240,7 @@ Agility">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="via-flask" title="Covered by battle + guardian elixir pairing instead of a flask">via elixirs</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Healing Power">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Elixir of Draenic Wisdom">&#10003;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Well Fed">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Brilliant Wizard Oil">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="no" title="Shield, caster off-hand item, or role doesn't need a melee off-hand buff">&mdash;</span></td>
@@ -3280,9 +3280,9 @@ Agility">&#10003;</span></td>
                   <td class="num" data-sort="2040">
                     <span class="value-trend"><span>2,040</span><span class="trend-new">NEW</span></span>
                   </td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Mighty Agility">&#10003;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Strength
 Agility">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Well Fed">&#10003;</span></td>
@@ -3324,11 +3324,11 @@ Agility">&#10003;</span></td>
                   <td class="num" data-sort="1457">
                     <span class="value-trend"><span>1,457</span><span class="trend-new">NEW</span></span>
                   </td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Windfury 5">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Windfury 5">&#10003;</span></td>
                   <td class="num zero-count" data-sort="0" title="">0</td>
@@ -3370,7 +3370,7 @@ Agility">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="via-flask" title="Covered by battle + guardian elixir pairing instead of a flask">via elixirs</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Spellpower Elixir">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Elixir of Draenic Wisdom">&#10003;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Well Fed">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Superior Wizard Oil">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="no" title="Shield, caster off-hand item, or role doesn't need a melee off-hand buff">&mdash;</span></td>
@@ -3413,7 +3413,7 @@ Agility">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Flask of Relentless Assault">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="via-flask" title="Covered by flask -- a flask and a battle elixir can never both be active">via flask</span></td>
                   <td class="consume" data-sort="1"><span class="via-flask" title="Covered by flask -- a flask and a guardian elixir can never both be active">via flask</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Well Fed">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="via-flask" title="Windfury Totem observed on this player -- no self-applied main-hand enchant needed">Windfury</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Sharpened VII">&#10003;</span></td>
@@ -3500,7 +3500,7 @@ Agility">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="via-flask" title="Covered by battle + guardian elixir pairing instead of a flask">via elixirs</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Mighty Agility">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Elixir of Draenic Wisdom">&#10003;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Well Fed">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Superior Mana Oil">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Weighted VII">&#10003;</span></td>
@@ -3540,11 +3540,11 @@ Agility">&#10003;</span></td>
                   <td class="num" data-sort="1305">
                     <span class="value-trend"><span>1,305</span><span class="trend-new">NEW</span></span>
                   </td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="via-flask" title="Windfury Totem observed on this player -- no self-applied main-hand enchant needed">Windfury</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Two-handed weapon -- same as Main Hand">&#10003;</span></td>
                   <td class="num zero-count" data-sort="0" title="">0</td>
@@ -3586,7 +3586,7 @@ Agility">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Flask of Pure Death">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="via-flask" title="Covered by flask -- a flask and a battle elixir can never both be active">via flask</span></td>
                   <td class="consume" data-sort="1"><span class="via-flask" title="Covered by flask -- a flask and a guardian elixir can never both be active">via flask</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Well Fed">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Brilliant Wizard Oil">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="no" title="Shield, caster off-hand item, or role doesn't need a melee off-hand buff">&mdash;</span></td>
@@ -3629,7 +3629,7 @@ Agility">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Flask of Pure Death">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="via-flask" title="Covered by flask -- a flask and a battle elixir can never both be active">via flask</span></td>
                   <td class="consume" data-sort="1"><span class="via-flask" title="Covered by flask -- a flask and a guardian elixir can never both be active">via flask</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Well Fed">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Brilliant Wizard Oil">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="no" title="Shield, caster off-hand item, or role doesn't need a melee off-hand buff">&mdash;</span></td>
@@ -3672,7 +3672,7 @@ Agility">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="via-flask" title="Covered by battle + guardian elixir pairing instead of a flask">via elixirs</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Spellpower Elixir">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Elixir of Draenic Wisdom">&#10003;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Well Fed">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Brilliant Wizard Oil (2h)">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Two-handed weapon -- same as Main Hand">&#10003;</span></td>
@@ -3715,8 +3715,8 @@ Agility">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Flask of Blinding Light">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="via-flask" title="Covered by flask -- a flask and a battle elixir can never both be active">via flask</span></td>
                   <td class="consume" data-sort="1"><span class="via-flask" title="Covered by flask -- a flask and a guardian elixir can never both be active">via flask</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
-                  <td class="consume" data-sort="0"><span class="no">&mdash;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
+                  <td class="consume" data-sort="0"><span class="no missing-expected">&times;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Brilliant Wizard Oil (2h)">&#10003;</span></td>
                   <td class="consume" data-sort="1"><span class="yes" title="Two-handed weapon -- same as Main Hand">&#10003;</span></td>
                   <td class="num zero-count" data-sort="0" title="">0</td>
