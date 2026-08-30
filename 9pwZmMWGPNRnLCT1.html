@@ -636,6 +636,18 @@
   }
   .diag strong { color: var(--text); }
   .diag code { font-family: "IBM Plex Mono", monospace; color: var(--text); }
+  /* Collapsible, default collapsed -- user request, 2026-08-30 (an
+     internal maintenance note, not something a raider needs to see on
+     page load). Same expand/collapse mechanics as the raid-group/
+     boss-block headers above, just this section's own header/body pair. */
+  .diag-header {
+    display: flex; align-items: center; gap: .5rem; width: 100%; text-align: left;
+    background: none; border: none; padding: 0; cursor: pointer; font: inherit; color: inherit;
+  }
+  .diag-header .boss-expand-ic { color: var(--warn); }
+  .diag-header[aria-expanded="false"] .boss-expand-ic { transform: rotate(-90deg); }
+  .diag-body { margin-top: .6rem; }
+  .diag-body[hidden] { display: none; }
 
   footer.page-footer {
     color: var(--muted-dim); font-size: .74rem; border-top: 1px solid var(--border);
@@ -757,7 +769,7 @@
             <td class="num deaths-nonzero" data-sort="1">1</td>
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-nonzero" data-sort="1">1</td>
-            <td class="parses-col" data-sort="30.75" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 30.8%</span></td>
+            <td class="parses-col" data-sort="30.75" title="Average parse across every boss killed in this report"><span class="parse uncommon">30.8%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-1" data-for="rr-1">
             <td></td>
@@ -815,7 +827,7 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Nether Beam (Kael&#39;thas Sunstrider) <span class="d-time">(7:07.9)</span></li></ul></td>
             <td class="d-cell">none</td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=damage-done&amp;graphperf=1&amp;source=19" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">42.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=damage-done&amp;graphperf=1&amp;source=19" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">4.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=damage-done&amp;graphperf=1&amp;source=19" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">39.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=damage-done&amp;graphperf=1&amp;source=19" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">38.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-2" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-2">
@@ -838,7 +850,7 @@
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-zero" data-sort="0">0</td>
-            <td class="parses-col" data-sort="64.5" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 64.5%</span></td>
+            <td class="parses-col" data-sort="64.5" title="Average parse across every boss killed in this report"><span class="parse rare">64.5%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-2" data-for="rr-2">
             <td></td>
@@ -896,7 +908,7 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=damage-done&amp;graphperf=1&amp;source=1" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">82.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=damage-done&amp;graphperf=1&amp;source=1" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">36.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse rare" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=damage-done&amp;graphperf=1&amp;source=1" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">60.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=damage-done&amp;graphperf=1&amp;source=1" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">80.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-3" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-3">
@@ -919,7 +931,7 @@
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-nonzero" data-sort="1">1</td>
             <td class="num deaths-nonzero" data-sort="1">1</td>
-            <td class="parses-col" data-sort="47.0" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 47.0%</span></td>
+            <td class="parses-col" data-sort="47.0" title="Average parse across every boss killed in this report"><span class="parse uncommon">47.0%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-3" data-for="rr-3">
             <td></td>
@@ -977,7 +989,7 @@
             <td class="d-cell">none</td>
             <td class="d-cell"><ul class="d-list"><li>Melee (Phoenix-Hawk) <span class="d-time">(0:15.4)</span></li></ul></td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=damage-done&amp;graphperf=1&amp;source=9" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">78.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=damage-done&amp;graphperf=1&amp;source=9" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">16.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-4" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-4">
@@ -1000,7 +1012,7 @@
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-zero" data-sort="0">0</td>
-            <td class="parses-col" data-sort="80.5" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 80.5%</span></td>
+            <td class="parses-col" data-sort="80.5" title="Average parse across every boss killed in this report"><span class="parse epic">80.5%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-4" data-for="rr-4">
             <td></td>
@@ -1058,7 +1070,7 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=damage-done&amp;graphperf=1&amp;source=97" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">75.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=damage-done&amp;graphperf=1&amp;source=97" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">86.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-5" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-5">
@@ -1081,7 +1093,7 @@
             <td class="num deaths-nonzero" data-sort="1">1</td>
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-nonzero" data-sort="1">1</td>
-            <td class="parses-col" data-sort="0.0" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 0.0%</span></td>
+            <td class="parses-col" data-sort="0.0" title="Average parse across every boss killed in this report"><span class="parse poor">0.0%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-5" data-for="rr-5">
             <td></td>
@@ -1139,7 +1151,7 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Flame Patch (Environment) <span class="d-time">(2:54.8)</span></li></ul></td>
             <td class="d-cell">none</td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=healing&amp;graphperf=1&amp;source=3" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">0.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=healing&amp;graphperf=1&amp;source=3" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">0.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-6" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-6">
@@ -1162,7 +1174,7 @@
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-zero" data-sort="0">0</td>
-            <td class="parses-col" data-sort="54.25" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 54.2%</span></td>
+            <td class="parses-col" data-sort="54.25" title="Average parse across every boss killed in this report"><span class="parse rare">54.2%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-6" data-for="rr-6">
             <td></td>
@@ -1220,7 +1232,7 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse rare" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=damage-done&amp;graphperf=1&amp;source=16" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">54.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=damage-done&amp;graphperf=1&amp;source=16" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">4.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=damage-done&amp;graphperf=1&amp;source=16" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">81.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=damage-done&amp;graphperf=1&amp;source=16" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">78.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-7" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-7">
@@ -1243,7 +1255,7 @@
             <td class="num deaths-nonzero" data-sort="1">1</td>
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-nonzero" data-sort="1">1</td>
-            <td class="parses-col" data-sort="41.5" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 41.5%</span></td>
+            <td class="parses-col" data-sort="41.5" title="Average parse across every boss killed in this report"><span class="parse uncommon">41.5%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-7" data-for="rr-7">
             <td></td>
@@ -1301,7 +1313,7 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Pounding (Void Reaver) <span class="d-time">(3:35.7)</span></li></ul></td>
             <td class="d-cell">none</td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=damage-done&amp;graphperf=1&amp;source=24" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">30.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=damage-done&amp;graphperf=1&amp;source=24" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">14.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=damage-done&amp;graphperf=1&amp;source=24" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">78.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=damage-done&amp;graphperf=1&amp;source=24" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">44.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-8" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-8">
@@ -1324,7 +1336,7 @@
             <td class="num deaths-nonzero" data-sort="3">3</td>
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-nonzero" data-sort="3">3</td>
-            <td class="parses-col" data-sort="23.5" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 23.5%</span></td>
+            <td class="parses-col" data-sort="23.5" title="Average parse across every boss killed in this report"><span class="parse poor">23.5%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-8" data-for="rr-8">
             <td></td>
@@ -1382,7 +1394,7 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Flame Patch (Environment) <span class="d-time">(3:22.4)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(3:01.7)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Nether Vapor (Nether Vapor) <span class="d-time">(7:12.4)</span></li></ul></td>
             <td class="d-cell">none</td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=damage-done&amp;graphperf=1&amp;source=29" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">2.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=damage-done&amp;graphperf=1&amp;source=29" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">6.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse rare" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=damage-done&amp;graphperf=1&amp;source=29" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">62.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=damage-done&amp;graphperf=1&amp;source=29" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">24.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-9" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-9">
@@ -1405,7 +1417,7 @@
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-zero" data-sort="0">0</td>
-            <td class="parses-col" data-sort="14.0" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 14.0%</span></td>
+            <td class="parses-col" data-sort="14.0" title="Average parse across every boss killed in this report"><span class="parse poor">14.0%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-9" data-for="rr-9">
             <td></td>
@@ -1463,7 +1475,7 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=healing&amp;graphperf=1&amp;source=5" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">27.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=healing&amp;graphperf=1&amp;source=5" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">7.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=healing&amp;graphperf=1&amp;source=5" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">11.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=healing&amp;graphperf=1&amp;source=5" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">11.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-10" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-10">
@@ -1486,7 +1498,7 @@
             <td class="num deaths-nonzero" data-sort="1">1</td>
             <td class="num deaths-nonzero" data-sort="2">2</td>
             <td class="num deaths-nonzero" data-sort="3">3</td>
-            <td class="parses-col" data-sort="38.25" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 38.2%</span></td>
+            <td class="parses-col" data-sort="38.25" title="Average parse across every boss killed in this report"><span class="parse uncommon">38.2%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-10" data-for="rr-10">
             <td></td>
@@ -1544,7 +1556,7 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(0:17.8)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li>Arcane Blast (Nether Scryer) <span class="d-time">(0:11.1)</span></li><li>Mind Flay (Crimson Hand Inquisitor) <span class="d-time">(0:09.2)</span></li></ul></td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=damage-done&amp;graphperf=1&amp;source=13" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">32.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=damage-done&amp;graphperf=1&amp;source=13" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">0.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=damage-done&amp;graphperf=1&amp;source=13" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">37.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=damage-done&amp;graphperf=1&amp;source=13" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">84.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-11" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-11">
@@ -1567,7 +1579,7 @@
             <td class="num deaths-nonzero" data-sort="2">2</td>
             <td class="num deaths-nonzero" data-sort="2">2</td>
             <td class="num deaths-nonzero" data-sort="4">4</td>
-            <td class="parses-col" data-sort="39.75" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 39.8%</span></td>
+            <td class="parses-col" data-sort="39.75" title="Average parse across every boss killed in this report"><span class="parse uncommon">39.8%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-11" data-for="rr-11">
             <td></td>
@@ -1625,7 +1637,7 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Melee (Al&#39;ar) <span class="d-time">(4:33.5)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(0:11.1)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li>Melee (Bloodwarder Vindicator) <span class="d-time">(0:06.2)</span></li><li>Overcharge (Crystalcore Sentinel) <span class="d-time">(0:23.4)</span></li></ul></td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse rare" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=damage-done&amp;graphperf=1&amp;source=15" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">58.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=damage-done&amp;graphperf=1&amp;source=15" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">1.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=damage-done&amp;graphperf=1&amp;source=15" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">27.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse rare" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=damage-done&amp;graphperf=1&amp;source=15" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">73.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-12" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-12">
@@ -1648,7 +1660,7 @@
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-zero" data-sort="0">0</td>
-            <td class="parses-col" data-sort="20.5" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 20.5%</span></td>
+            <td class="parses-col" data-sort="20.5" title="Average parse across every boss killed in this report"><span class="parse poor">20.5%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-12" data-for="rr-12">
             <td></td>
@@ -1706,7 +1718,7 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=healing&amp;graphperf=1&amp;source=4" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">43.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=healing&amp;graphperf=1&amp;source=4" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">10.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=healing&amp;graphperf=1&amp;source=4" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">10.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=healing&amp;graphperf=1&amp;source=4" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">19.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-13" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-13">
@@ -1729,7 +1741,7 @@
             <td class="num deaths-nonzero" data-sort="2">2</td>
             <td class="num deaths-nonzero" data-sort="2">2</td>
             <td class="num deaths-nonzero" data-sort="4">4</td>
-            <td class="parses-col" data-sort="54.0" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 54.0%</span></td>
+            <td class="parses-col" data-sort="54.0" title="Average parse across every boss killed in this report"><span class="parse rare">54.0%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-13" data-for="rr-13">
             <td></td>
@@ -1787,7 +1799,7 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Dive Bomb (Al&#39;ar) <span class="d-time">(5:11.6)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(2:58.1)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li>Shadow Word: Death (Environment) <span class="d-time">(1:01.0)</span></li><li>Charged Arcane Explosion (Crystalcore Sentinel) <span class="d-time">(0:28.8)</span></li></ul></td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse rare" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=damage-done&amp;graphperf=1&amp;source=31" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">51.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=damage-done&amp;graphperf=1&amp;source=31" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">8.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=damage-done&amp;graphperf=1&amp;source=31" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">88.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse rare" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=damage-done&amp;graphperf=1&amp;source=31" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">69.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-14" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-14">
@@ -1810,7 +1822,7 @@
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-nonzero" data-sort="1">1</td>
             <td class="num deaths-nonzero" data-sort="1">1</td>
-            <td class="parses-col" data-sort="6.5" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 6.5%</span></td>
+            <td class="parses-col" data-sort="6.5" title="Average parse across every boss killed in this report"><span class="parse poor">6.5%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-14" data-for="rr-14">
             <td></td>
@@ -1868,7 +1880,7 @@
             <td class="d-cell">none</td>
             <td class="d-cell"><ul class="d-list"><li>Melee (Bloodwarder Legionnaire) <span class="d-time">(0:00.0)</span></li></ul></td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=healing&amp;graphperf=1&amp;source=96" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">4.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=healing&amp;graphperf=1&amp;source=96" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">9.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-15" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-15">
@@ -1891,7 +1903,7 @@
             <td class="num deaths-nonzero" data-sort="1">1</td>
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-nonzero" data-sort="1">1</td>
-            <td class="parses-col" data-sort="22.5" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 22.5%</span></td>
+            <td class="parses-col" data-sort="22.5" title="Average parse across every boss killed in this report"><span class="parse poor">22.5%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-15" data-for="rr-15">
             <td></td>
@@ -1949,7 +1961,7 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Unknown <span class="d-time">(4:12.5)</span></li></ul></td>
             <td class="d-cell">none</td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=healing&amp;graphperf=1&amp;source=79" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">39.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=healing&amp;graphperf=1&amp;source=79" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">11.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=healing&amp;graphperf=1&amp;source=79" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">31.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=healing&amp;graphperf=1&amp;source=79" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">9.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-16" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-16">
@@ -1972,7 +1984,7 @@
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-nonzero" data-sort="1">1</td>
             <td class="num deaths-nonzero" data-sort="1">1</td>
-            <td class="parses-col" data-sort="74.5" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 74.5%</span></td>
+            <td class="parses-col" data-sort="74.5" title="Average parse across every boss killed in this report"><span class="parse rare">74.5%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-16" data-for="rr-16">
             <td></td>
@@ -2036,7 +2048,7 @@
             <td class="d-cell">none</td>
             <td class="d-cell"><ul class="d-list"><li>Whirlwind (Bloodwarder Marshal) <span class="d-time">(0:07.1)</span></li></ul></td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=damage-done&amp;graphperf=1&amp;source=27" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">75.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse rare" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=damage-done&amp;graphperf=1&amp;source=27" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">58.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse rare" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=damage-done&amp;graphperf=1&amp;source=27" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">73.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=damage-done&amp;graphperf=1&amp;source=27" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">92.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-17" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-17">
@@ -2059,7 +2071,7 @@
             <td class="num deaths-nonzero" data-sort="1">1</td>
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-nonzero" data-sort="1">1</td>
-            <td class="parses-col" data-sort="43.25" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 43.2%</span></td>
+            <td class="parses-col" data-sort="43.25" title="Average parse across every boss killed in this report"><span class="parse uncommon">43.2%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-17" data-for="rr-17">
             <td></td>
@@ -2123,7 +2135,7 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(4:36.7)</span></li></ul></td>
             <td class="d-cell">none</td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=damage-done&amp;graphperf=1&amp;source=12" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">47.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=damage-done&amp;graphperf=1&amp;source=12" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">25.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse rare" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=damage-done&amp;graphperf=1&amp;source=12" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">60.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=damage-done&amp;graphperf=1&amp;source=12" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">41.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-18" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-18">
@@ -2146,7 +2158,7 @@
             <td class="num deaths-nonzero" data-sort="1">1</td>
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-nonzero" data-sort="1">1</td>
-            <td class="parses-col" data-sort="50.5" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 50.5%</span></td>
+            <td class="parses-col" data-sort="50.5" title="Average parse across every boss killed in this report"><span class="parse rare">50.5%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-18" data-for="rr-18">
             <td></td>
@@ -2204,7 +2216,7 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(3:30.9)</span></li></ul></td>
             <td class="d-cell">none</td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse rare" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=damage-done&amp;graphperf=1&amp;source=10" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">58.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=damage-done&amp;graphperf=1&amp;source=10" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">14.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse rare" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=damage-done&amp;graphperf=1&amp;source=10" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">63.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse rare" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=damage-done&amp;graphperf=1&amp;source=10" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">67.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-19" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-19">
@@ -2227,7 +2239,7 @@
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-zero" data-sort="0">0</td>
-            <td class="parses-col" data-sort="57.75" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 57.8%</span></td>
+            <td class="parses-col" data-sort="57.75" title="Average parse across every boss killed in this report"><span class="parse rare">57.8%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-19" data-for="rr-19">
             <td></td>
@@ -2285,7 +2297,7 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse rare" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=healing&amp;graphperf=1&amp;source=23" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">71.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=healing&amp;graphperf=1&amp;source=23" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">43.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=healing&amp;graphperf=1&amp;source=23" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">34.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=healing&amp;graphperf=1&amp;source=23" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">83.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-20" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-20">
@@ -2308,7 +2320,7 @@
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-zero" data-sort="0">0</td>
-            <td class="parses-col" data-sort="60.25" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 60.2%</span></td>
+            <td class="parses-col" data-sort="60.25" title="Average parse across every boss killed in this report"><span class="parse rare">60.2%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-20" data-for="rr-20">
             <td></td>
@@ -2366,7 +2378,7 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse rare" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=healing&amp;graphperf=1&amp;source=17" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">69.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=healing&amp;graphperf=1&amp;source=17" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">16.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=healing&amp;graphperf=1&amp;source=17" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">76.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=healing&amp;graphperf=1&amp;source=17" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">80.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-21" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-21">
@@ -2389,7 +2401,7 @@
             <td class="num deaths-nonzero" data-sort="1">1</td>
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-nonzero" data-sort="1">1</td>
-            <td class="parses-col" data-sort="62.75" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 62.8%</span></td>
+            <td class="parses-col" data-sort="62.75" title="Average parse across every boss killed in this report"><span class="parse rare">62.8%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-21" data-for="rr-21">
             <td></td>
@@ -2453,7 +2465,7 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(3:38.9)</span></li></ul></td>
             <td class="d-cell">none</td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=damage-done&amp;graphperf=1&amp;source=14" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">77.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=damage-done&amp;graphperf=1&amp;source=14" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">7.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=damage-done&amp;graphperf=1&amp;source=14" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">81.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=damage-done&amp;graphperf=1&amp;source=14" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">86.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-22" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-22">
@@ -2476,7 +2488,7 @@
             <td class="num deaths-nonzero" data-sort="1">1</td>
             <td class="num deaths-nonzero" data-sort="2">2</td>
             <td class="num deaths-nonzero" data-sort="3">3</td>
-            <td class="parses-col" data-sort="68.0" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 68.0%</span></td>
+            <td class="parses-col" data-sort="68.0" title="Average parse across every boss killed in this report"><span class="parse rare">68.0%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-22" data-for="rr-22">
             <td></td>
@@ -2534,7 +2546,7 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(1:48.9)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li>Arcane Flurry (Crimson Hand Centurion) <span class="d-time">(0:29.9)</span></li><li>Melee (Crimson Hand Centurion) <span class="d-time">(0:29.8)</span></li></ul></td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=damage-done&amp;graphperf=1&amp;source=6" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">79.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=damage-done&amp;graphperf=1&amp;source=6" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">25.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse rare" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=damage-done&amp;graphperf=1&amp;source=6" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">74.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=damage-done&amp;graphperf=1&amp;source=6" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">94.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-23" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-23">
@@ -2557,7 +2569,7 @@
             <td class="num deaths-nonzero" data-sort="2">2</td>
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-nonzero" data-sort="2">2</td>
-            <td class="parses-col" data-sort="15.5" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 15.5%</span></td>
+            <td class="parses-col" data-sort="15.5" title="Average parse across every boss killed in this report"><span class="parse poor">15.5%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-23" data-for="rr-23">
             <td></td>
@@ -2615,7 +2627,7 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Melee (Al&#39;ar) <span class="d-time">(2:31.2)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(3:14.8)</span></li></ul></td>
             <td class="d-cell">none</td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=damage-done&amp;graphperf=1&amp;source=22" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">5.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=damage-done&amp;graphperf=1&amp;source=22" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">3.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=damage-done&amp;graphperf=1&amp;source=22" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">27.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=damage-done&amp;graphperf=1&amp;source=22" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">27.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-24" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-24">
@@ -2638,7 +2650,7 @@
             <td class="num deaths-nonzero" data-sort="2">2</td>
             <td class="num deaths-zero" data-sort="0">0</td>
             <td class="num deaths-nonzero" data-sort="2">2</td>
-            <td class="parses-col" data-sort="35.5" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 35.5%</span></td>
+            <td class="parses-col" data-sort="35.5" title="Average parse across every boss killed in this report"><span class="parse uncommon">35.5%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-24" data-for="rr-24">
             <td></td>
@@ -2696,7 +2708,7 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Melee (Al&#39;ar) <span class="d-time">(2:29.2)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(1:56.5)</span></li></ul></td>
             <td class="d-cell">none</td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=damage-done&amp;graphperf=1&amp;source=25" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">24.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=damage-done&amp;graphperf=1&amp;source=25" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">3.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse rare" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=damage-done&amp;graphperf=1&amp;source=25" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">69.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=damage-done&amp;graphperf=1&amp;source=25" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">46.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-25" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-25">
@@ -2719,7 +2731,7 @@
             <td class="num deaths-nonzero" data-sort="2">2</td>
             <td class="num deaths-nonzero" data-sort="1">1</td>
             <td class="num deaths-nonzero" data-sort="3">3</td>
-            <td class="parses-col" data-sort="35.75" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 35.8%</span></td>
+            <td class="parses-col" data-sort="35.75" title="Average parse across every boss killed in this report"><span class="parse uncommon">35.8%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-25" data-for="rr-25">
             <td></td>
@@ -2783,7 +2795,7 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Pounding (Void Reaver) <span class="d-time">(3:34.7)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Nether Beam (Kael&#39;thas Sunstrider) <span class="d-time">(7:11.6)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li>Melee (Bloodwarder Vindicator) <span class="d-time">(0:10.2)</span></li></ul></td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=damage-done&amp;graphperf=1&amp;source=28" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">48.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=damage-done&amp;graphperf=1&amp;source=28" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">4.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse rare" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=damage-done&amp;graphperf=1&amp;source=28" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">56.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=damage-done&amp;graphperf=1&amp;source=28" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">35.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-26" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-26">
@@ -2806,7 +2818,7 @@
             <td class="num deaths-nonzero" data-sort="1">1</td>
             <td class="num deaths-nonzero" data-sort="2">2</td>
             <td class="num deaths-nonzero" data-sort="3">3</td>
-            <td class="parses-col" data-sort="29.5" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 29.5%</span></td>
+            <td class="parses-col" data-sort="29.5" title="Average parse across every boss killed in this report"><span class="parse uncommon">29.5%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-26" data-for="rr-26">
             <td></td>
@@ -2870,7 +2882,7 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Nether Beam (Kael&#39;thas Sunstrider) <span class="d-time">(7:11.6)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li>Melee (Bloodwarder Vindicator) <span class="d-time">(0:08.2)</span></li><li>Melee (Jabujabu) <span class="d-time">(0:15.0)</span></li></ul></td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=damage-done&amp;graphperf=1&amp;source=2" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">34.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=damage-done&amp;graphperf=1&amp;source=2" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">18.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse uncommon" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=damage-done&amp;graphperf=1&amp;source=2" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">46.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=damage-done&amp;graphperf=1&amp;source=2" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">20.0%</a></li></ul></td>
           </tr>
           
           <tr class="data-row" id="rr-27" tabindex="0" role="button" aria-expanded="false" aria-controls="rrd-27">
@@ -2893,7 +2905,7 @@
             <td class="num deaths-nonzero" data-sort="1">1</td>
             <td class="num deaths-nonzero" data-sort="2">2</td>
             <td class="num deaths-nonzero" data-sort="3">3</td>
-            <td class="parses-col" data-sort="63.5" title="Running average parse across every Tempest Keep kill logged so far this phase -- arrow is this week&#39;s trend vs. personal best. Expand row for the full history across every boss, every phase"><span class="trend flat">&#8594; 63.5%</span></td>
+            <td class="parses-col" data-sort="63.5" title="Average parse across every boss killed in this report"><span class="parse rare">63.5%</span></td>
           </tr>
           <tr class="detail-row" id="rrd-27" data-for="rr-27">
             <td></td>
@@ -2957,7 +2969,7 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(2:57.1)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li>Melee (Bloodwarder Legionnaire) <span class="d-time">(0:17.1)</span></li><li>Melee (Crimson Hand Battle Mage) <span class="d-time">(0:04.1)</span></li></ul></td>
             <td></td>
-            <td class="d-cell parses-col">no parse change this week</td>
+            <td class="d-cell parses-col"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span><a class="parse rare" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=8&amp;type=damage-done&amp;graphperf=1&amp;source=26" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">69.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span><a class="parse poor" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=16&amp;type=damage-done&amp;graphperf=1&amp;source=26" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">6.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span><a class="parse epic" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=29&amp;type=damage-done&amp;graphperf=1&amp;source=26" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">81.0%</a></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span><a class="parse legendary" href="https://fresh.warcraftlogs.com/reports/9pwZmMWGPNRnLCT1?fight=38&amp;type=damage-done&amp;graphperf=1&amp;source=26" target="_blank" rel="noopener" title="Open this fight on WarcraftLogs">98.0%</a></li></ul></td>
           </tr>
           
         </tbody>
@@ -7670,15 +7682,20 @@ Strength">&#10003;</span></td>
 
   
   <div class="diag">
-    <strong>Diagnostics:</strong> 7 buff name(s) seen this run that aren't classified as a consumable or in the ignore list yet.
-    Review and add to <code>config/consumables.yaml</code> if any of these are actually a consumable:
-    <br><code>Aura of the Blue Dragon, Blessing of Light, Flexibility, Intervene, Power of Arcanagos, Prayer of Spirit, Shield Block</code>
+    <button class="diag-header" type="button" aria-expanded="false" data-target="diag-body">
+      <span class="boss-expand-ic">&#9660;</span>
+      <strong>Diagnostics:</strong> 7 buff name(s) seen this run that aren't classified as a consumable or in the ignore list yet.
+    </button>
+    <div class="diag-body" id="diag-body" hidden>
+      Review and add to <code>config/consumables.yaml</code> if any of these are actually a consumable:
+      <br><code>Aura of the Blue Dragon, Blessing of Light, Flexibility, Intervene, Power of Arcanagos, Prayer of Spirit, Shield Block</code>
+    </div>
   </div>
   
 
   <footer class="page-footer">
     <div class="footer-meta">
-      <span>Generated 8/30/2026 08:19 UTC by JabuJabu&#39;s TBC Raid Analyzer.</span>
+      <span>Generated 8/30/2026 09:08 UTC by JabuJabu&#39;s TBC Raid Analyzer.</span>
       <span>History: <code>data/history/adhoc/players.json</code> &middot; window: <code>best_ever</code></span>
     </div>
     <div class="footer-credit">Created by <a href="https://github.com/jabujabu92" target="_blank" rel="noopener">jabujabu</a></div>
@@ -7779,9 +7796,10 @@ Strength">&#10003;</span></td>
   });
 
   // Collapsible raid-instance groups and per-boss sections in the Per-Boss
-  // Parse block (Part 5) -- same expanded-by-default, click-header-to-
-  // collapse pattern as the Roster Summary's row detail toggle above.
-  document.querySelectorAll(".raid-group-header, .boss-block-header").forEach(function (header) {
+  // Parse block (Part 5), plus the Diagnostics panel (default collapsed,
+  // user request 2026-08-30 -- an internal note, not raider-facing) --
+  // same click-header-to-collapse mechanics for all three.
+  document.querySelectorAll(".raid-group-header, .boss-block-header, .diag-header").forEach(function (header) {
     var body = document.getElementById(header.getAttribute("data-target"));
     if (!body) return;
     header.addEventListener("click", function () {
