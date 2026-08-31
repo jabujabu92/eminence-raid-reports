@@ -350,6 +350,29 @@
   tbody tr:hover td { background: var(--bg); }
   .num { font-family: "IBM Plex Mono", monospace; font-variant-numeric: tabular-nums; }
 
+  /* Roster Summary: fixed column widths -- user request, 2026-08-31 ("the
+     columns shift quite a bit when the row expands"). Chrome's default
+     table-layout: auto sizes a table from EVERY visible cell, including
+     detail-row content -- while a detail row sits at display:none (the
+     default, see tr.detail-row above) its long consumable/death/dispel
+     lists don't count toward that, but the instant one opens, that
+     content joins the calculation and the whole table's columns
+     recompute, visibly shifting every OTHER row too. table-layout: fixed
+     reads widths only from this header row and ignores body/detail
+     content for sizing entirely, same fix (and same reasoning) already
+     applied to .pb-table below -- a detail row's own long content just
+     wraps within its fixed-width column (tr.detail-row td's existing
+     white-space: normal already allows this), growing the row taller
+     instead of any column wider. */
+  .roster-table { table-layout: fixed; }
+  .roster-table .flag-col { width: 2%; }
+  .roster-table .rs-raider { width: 13%; }
+  .roster-table .rs-role { width: 7%; }
+  .roster-table .consume { width: 6%; }
+  .roster-table .rs-count { width: 4%; }
+  .roster-table .parses-col { width: 12%; }
+  .roster-table tbody td:not(.d-cell) { overflow: hidden; text-overflow: ellipsis; }
+
   /* Per-Boss tables: identical column widths across EVERY boss's table on
      the page, not auto-sized independently per table -- user request,
      2026-08-27 ("if one table has a longer entry... make sure all the
@@ -492,7 +515,7 @@
      expanded view used to print one, 2026-08-27. Falls back to
      .boss-ic-fallback (plain text, still title-tooltipped) for a boss
      with no known icon id. */
-  .boss-ic { width: 15px; height: 15px; border-radius: 3px; border: 1px solid var(--border); vertical-align: -3px; cursor: help; }
+  .boss-ic { width: 30px; height: 30px; border-radius: 5px; border: 1px solid var(--border); vertical-align: -6px; cursor: help; }
   .boss-ic-fallback { font-weight: 600; color: var(--text); font-style: normal; cursor: help; border-bottom: 1px dotted var(--muted-dim); }
   /* Parses breakdown, per boss (user request, 2026-08-24 -- history list
      dropped the same day for being "incredibly long"):
@@ -748,12 +771,12 @@
     <p class="hint">Click a raider's row for full detail (which flask/elixirs/scrolls/potions/items, main + off hand weapon buffs, death causes). Click a column header to sort. Trash Deaths counts deaths outside boss pulls &mdash; not used for parse.</p>
     <p class="hint kt-bug-note">*Mana potions are currently not counted correctly in the WCL API -- the Pots column may undercount.</p>
     <div class="table-scroll">
-      <table>
+      <table class="roster-table">
         <thead>
           <tr>
             <th class="flag-col" title="Flag column: red warning = no flask/elixir AND no food buff all week. Green check = flask/elixir AND food maintained on every boss. Gold star = every tracked buff/enchant maintained on every boss -- a perfect week. Click to sort">&#9888;</th>
-            <th title="Click a row to expand full detail for that raider; click a linked name to open their WarcraftLogs character page">Raider</th>
-            <th title="Spec (from WCL's rankings, falling back to roster data when WCL hasn't computed a ranking for that encounter) and Tank/Healer/DPS role for this week">Role</th>
+            <th class="rs-raider" title="Click a row to expand full detail for that raider; click a linked name to open their WarcraftLogs character page">Raider</th>
+            <th class="rs-role" title="Spec (from WCL's rankings, falling back to roster data when WCL hasn't computed a ranking for that encounter) and Tank/Healer/DPS role for this week">Role</th>
             <th class="consume" title="Bosses with a flask active, out of bosses fought this week -- a full battle + guardian elixir pairing counts too, same as a flask covers both elixir slots">Flask</th>
             <th class="consume" title="Bosses with a battle elixir active, out of bosses NOT already covered by a flask -- a flask-covered week shows an em dash instead, nothing left to track">Battle</th>
             <th class="consume" title="Bosses with a guardian elixir active, out of bosses NOT already covered by a flask -- a flask-covered week shows an em dash instead, nothing left to track">Guardian</th>
@@ -761,15 +784,14 @@
             <th class="consume" title="Bosses with a Well Fed (or equivalent) food buff active, out of bosses fought this week">Food</th>
             <th class="consume" title="Bosses with a main-hand weapon buff active, out of bosses fought this week -- Windfury Totem counts if actually observed on this player, otherwise expects a self-applied enchant">Main&nbsp;Hand</th>
             <th class="consume" title="Bosses with an off-hand weapon buff active, out of bosses fought this week -- melee only, casters and shield-users show an em dash (not tracked)">Off&nbsp;Hand</th>
-            <th title="Total potions consumed this week, across every boss pull. *Mana potions are currently not counted correctly in the WCL API -- see the note above this table.">Pots*</th>
-            <th title="Healthstone uses">HS</th>
-            <th title="Sappers, grenades, engineering bombs, etc. used during boss pulls">Boss&nbsp;Items</th>
-            <th title="Sappers, grenades, engineering bombs, etc. used during trash pulls -- separate from Boss Items since popping something while clearing trash isn't really comparable to using it mid-boss-fight">Trash&nbsp;Items</th>
-            <th title="Enemy casts interrupted this week, boss AND trash pulls combined -- expand for which spell, on which enemy, and where">Interrupts</th>
-            <th title="Cleanse/Dispel Magic/Remove Curse/Abolish Poison/Cure Disease etc. landed this week, boss AND trash pulls combined -- expand for what got removed, from whom, and when">Dispels</th>
+            <th class="rs-count" title="Total potions consumed this week, across every boss pull. *Mana potions are currently not counted correctly in the WCL API -- see the note above this table.">Pots*</th>
+            <th class="rs-count" title="Healthstone uses">HS</th>
+            <th class="rs-count" title="Sappers, grenades, engineering bombs, etc. used this week, boss AND trash pulls combined -- expand for which item, where, and when">Items</th>
+            <th class="rs-count" title="Enemy casts interrupted this week, boss AND trash pulls combined -- expand for which spell, on which enemy, and where">Interrupts</th>
+            <th class="rs-count" title="Cleanse/Dispel Magic/Remove Curse/Abolish Poison/Cure Disease etc. landed this week, boss AND trash pulls combined -- expand for what got removed, from whom, and when">Dispels</th>
             <th class="col-boss-deaths" title="Deaths during boss pulls this week">Boss Deaths</th>
             <th class="col-trash-deaths" title="Deaths outside of boss pulls (trash/filler packs) -- not used for parse">Trash Deaths</th>
-            <th title="Boss Deaths + Trash Deaths combined -- see the Per-Boss tables below for individual death causes">Deaths</th>
+            <th class="rs-count" title="Boss Deaths + Trash Deaths combined -- see the Per-Boss tables below for individual death causes">Deaths</th>
             <th class="parses-col" title="Running average parse across every current-phase kill logged so far this phase, not just this week -- arrow is this week's trend vs. personal best. Expand a raider's row for the full history across every boss, every phase">Parses</th>
           </tr>
         </thead>
@@ -789,7 +811,6 @@
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num" data-sort="1">1</td>
             <td class="num col-boss-deaths deaths-nonzero" data-sort="1">1</td>
@@ -848,7 +869,6 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Touch of Weakness off Overwhelmz <span class="d-time">(0:26.5)</span></li></ul></td>
             <td class="d-cell col-boss-deaths"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Nether Beam (Kael&#39;thas Sunstrider) <span class="d-time">(7:07.9)</span></li></ul></td>
             <td class="d-cell col-trash-deaths">none</td>
@@ -870,7 +890,6 @@
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num col-boss-deaths deaths-zero" data-sort="0">0</td>
@@ -930,7 +949,6 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell col-boss-deaths">none</td>
             <td class="d-cell col-trash-deaths">none</td>
             <td></td>
@@ -951,7 +969,6 @@
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num col-boss-deaths deaths-zero" data-sort="0">0</td>
@@ -1011,7 +1028,6 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell col-boss-deaths">none</td>
             <td class="d-cell col-trash-deaths"><ul class="d-list"><li>Melee (Phoenix-Hawk) <span class="d-time">(0:15.4)</span></li></ul></td>
             <td></td>
@@ -1032,7 +1048,6 @@
             <td class="num " data-sort="1" title="High Astromancer Solarian">1</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num col-boss-deaths deaths-zero" data-sort="0">0</td>
@@ -1092,7 +1107,6 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell col-boss-deaths">none</td>
             <td class="d-cell col-trash-deaths">none</td>
             <td></td>
@@ -1113,7 +1127,6 @@
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num col-boss-deaths deaths-nonzero" data-sort="1">1</td>
@@ -1173,7 +1186,6 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell col-boss-deaths"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Flame Patch (Environment) <span class="d-time">(2:54.8)</span></li></ul></td>
             <td class="d-cell col-trash-deaths">none</td>
             <td></td>
@@ -1194,7 +1206,6 @@
             <td class="num " data-sort="1" title="High Astromancer Solarian">1</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num" data-sort="9">9</td>
             <td class="num col-boss-deaths deaths-zero" data-sort="0">0</td>
@@ -1253,7 +1264,6 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Abolish Disease off Kael&#39;thas Sunstrider <span class="d-time">(5:08.3)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Molten Armor off Astromancer <span class="d-time">(0:08.7)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Molten Armor off Astromancer <span class="d-time">(0:11.3)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Molten Armor off Astromancer <span class="d-time">(0:07.4)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Fire Shield off Tempest Falconer <span class="d-time">(0:43.1)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Nether Scryer <span class="d-time">(0:14.1)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Crimson Hand Centurion <span class="d-time">(0:33.8)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Crimson Hand Centurion <span class="d-time">(0:39.5)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Crimson Hand Blood Knight <span class="d-time">(0:33.6)</span></li></ul></td>
             <td class="d-cell col-boss-deaths">none</td>
             <td class="d-cell col-trash-deaths">none</td>
@@ -1275,7 +1285,6 @@
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="1">1</td>
             <td class="num" data-sort="2">2</td>
             <td class="num col-boss-deaths deaths-nonzero" data-sort="1">1</td>
@@ -1333,7 +1342,6 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span>Great Heal on Solarium Priest <span class="d-time">(1:24.4)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Fire Shield off Tempest Falconer <span class="d-time">(0:46.1)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Fire Shield off Tempest Falconer <span class="d-time">(1:31.5)</span></li></ul></td>
             <td class="d-cell col-boss-deaths"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Pounding (Void Reaver) <span class="d-time">(3:35.7)</span></li></ul></td>
@@ -1356,7 +1364,6 @@
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="1">1</td>
             <td class="num" data-sort="3">3</td>
             <td class="num col-boss-deaths deaths-nonzero" data-sort="3">3</td>
@@ -1414,7 +1421,6 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span>Great Heal on Solarium Priest <span class="d-time">(1:36.9)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Molten Armor off Astromancer <span class="d-time">(0:28.3)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Bloodwarder Marshal <span class="d-time">(0:40.1)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Bloodwarder Marshal <span class="d-time">(0:43.7)</span></li></ul></td>
             <td class="d-cell col-boss-deaths"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Flame Patch (Environment) <span class="d-time">(3:22.4)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(3:01.7)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Nether Vapor (Nether Vapor) <span class="d-time">(7:12.4)</span></li></ul></td>
@@ -1437,7 +1443,6 @@
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num " data-sort="1" title="Void Reaver">1</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num" data-sort="2">2</td>
             <td class="num col-boss-deaths deaths-zero" data-sort="0">0</td>
@@ -1496,7 +1501,6 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Master Healthstone <span class="d-time">(2:57.1)</span></li></ul></td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Deadly Poison VII off Healn <span class="d-time">(5:11.8)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Hammer of Justice off Healn <span class="d-time">(5:11.8)</span></li></ul></td>
             <td class="d-cell col-boss-deaths">none</td>
             <td class="d-cell col-trash-deaths">none</td>
@@ -1518,7 +1522,6 @@
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num " data-sort="1" title="Al&#39;ar">1</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num" data-sort="1">1</td>
             <td class="num col-boss-deaths deaths-nonzero" data-sort="1">1</td>
@@ -1577,7 +1580,6 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Master Healthstone <span class="d-time">(1:15.1)</span></li></ul></td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Silence off Ledarious <span class="d-time">(0:16.0)</span></li></ul></td>
             <td class="d-cell col-boss-deaths"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(0:17.8)</span></li></ul></td>
             <td class="d-cell col-trash-deaths"><ul class="d-list"><li>Arcane Blast (Nether Scryer) <span class="d-time">(0:11.1)</span></li><li>Mind Flay (Crimson Hand Inquisitor) <span class="d-time">(0:09.2)</span></li></ul></td>
@@ -1599,7 +1601,6 @@
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num " data-sort="1" title="High Astromancer Solarian">1</td>
             <td class="num " data-sort="4" title="High Astromancer Solarian &times;2&#10;Kael&#39;thas Sunstrider &times;2">4</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num col-boss-deaths deaths-nonzero" data-sort="2">2</td>
@@ -1659,7 +1660,6 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span>Fel Iron Bomb <span class="d-time">(0:24.9)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span>Fel Iron Bomb <span class="d-time">(0:25.9)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Super Sapper Charge <span class="d-time">(2:00.4)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Ironshield <span class="d-time">(2:05.3)</span></li></ul></td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell col-boss-deaths"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Melee (Al&#39;ar) <span class="d-time">(4:33.5)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(0:11.1)</span></li></ul></td>
             <td class="d-cell col-trash-deaths"><ul class="d-list"><li>Melee (Bloodwarder Vindicator) <span class="d-time">(0:06.2)</span></li><li>Overcharge (Crystalcore Sentinel) <span class="d-time">(0:23.4)</span></li></ul></td>
             <td></td>
@@ -1680,7 +1680,6 @@
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num " data-sort="1" title="Void Reaver">1</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num" data-sort="32">32</td>
             <td class="num col-boss-deaths deaths-zero" data-sort="0">0</td>
@@ -1739,7 +1738,6 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Master Healthstone <span class="d-time">(0:31.3)</span></li></ul></td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Greater Blessing of Wisdom off Vinch <span class="d-time">(4:58.7)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Inner Fire off Sanake <span class="d-time">(5:01.2)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Bloodlust off Dotsnotalotz <span class="d-time">(5:01.2)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Icy Veins off Fenerm <span class="d-time">(5:01.2)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Arcane Brilliance off Shardashian <span class="d-time">(5:01.2)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Prayer of Fortitude off Fatesmasher <span class="d-time">(5:01.2)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Greater Blessing of Wisdom off Luminoriel <span class="d-time">(5:01.2)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Greater Blessing of Salvation off Neiveh <span class="d-time">(5:01.2)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Drums of Battle off Brdn <span class="d-time">(5:01.2)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Devouring Plague off Kael&#39;thas Sunstrider <span class="d-time">(5:07.2)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Faerie Fire (Feral) off Ledarious <span class="d-time">(0:47.9)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Ledarious <span class="d-time">(0:47.9)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Silence off Ledarious <span class="d-time">(0:23.2)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Silence off Ledarious <span class="d-time">(1:15.9)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Silence off Ledarious <span class="d-time">(1:19.0)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Fredyshift <span class="d-time">(0:20.1)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Prayer of Fortitude off Blazzedd <span class="d-time">(0:09.5)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Bloodlust off Bloodwarder Legionnaire <span class="d-time">(0:18.0)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Shadow Word: Pain off Fredyshift <span class="d-time">(0:21.9)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Fredyshift <span class="d-time">(0:03.9)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Fredyshift <span class="d-time">(0:33.2)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Crimson Hand Centurion <span class="d-time">(0:52.4)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Crimson Hand Centurion <span class="d-time">(0:55.0)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Ledarious <span class="d-time">(0:37.4)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Shadow Word: Pain off Ledarious <span class="d-time">(0:06.5)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Ledarious <span class="d-time">(0:12.5)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Ledarious <span class="d-time">(0:27.1)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Ledarious <span class="d-time">(0:40.9)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Ledarious <span class="d-time">(0:08.1)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Ledarious <span class="d-time">(0:18.0)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Ledarious <span class="d-time">(0:38.4)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Ledarious <span class="d-time">(0:23.1)</span></li></ul></td>
             <td class="d-cell col-boss-deaths">none</td>
             <td class="d-cell col-trash-deaths">none</td>
@@ -1761,7 +1759,6 @@
             <td class="num " data-sort="3" title="Al&#39;ar&#10;Void Reaver&#10;High Astromancer Solarian">3</td>
             <td class="num " data-sort="3" title="Void Reaver&#10;Kael&#39;thas Sunstrider &times;2">3</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num" data-sort="10">10</td>
             <td class="num col-boss-deaths deaths-nonzero" data-sort="2">2</td>
@@ -1820,7 +1817,6 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Master Healthstone <span class="d-time">(1:02.0)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Master Healthstone <span class="d-time">(3:02.8)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Master Healthstone <span class="d-time">(7:15.3)</span></li></ul></td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Fredyshift <span class="d-time">(0:16.8)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Fredyshift <span class="d-time">(0:13.6)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Ledarious <span class="d-time">(0:11.5)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Arcane Buffet off Dotsnotalotz <span class="d-time">(0:16.0)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Arcane Buffet off DOG <span class="d-time">(0:19.4)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Ledarious <span class="d-time">(0:22.6)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Fredyshift <span class="d-time">(0:25.5)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Fredyshift <span class="d-time">(0:18.8)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Ledarious <span class="d-time">(0:51.8)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Fredyshift <span class="d-time">(0:59.7)</span></li></ul></td>
             <td class="d-cell col-boss-deaths"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Dive Bomb (Al&#39;ar) <span class="d-time">(5:11.6)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(2:58.1)</span></li></ul></td>
             <td class="d-cell col-trash-deaths"><ul class="d-list"><li>Shadow Word: Death (Environment) <span class="d-time">(1:01.0)</span></li><li>Charged Arcane Explosion (Crystalcore Sentinel) <span class="d-time">(0:28.8)</span></li></ul></td>
@@ -1842,7 +1838,6 @@
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num" data-sort="14">14</td>
             <td class="num col-boss-deaths deaths-zero" data-sort="0">0</td>
@@ -1901,7 +1896,6 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Hammer of Justice off Ledarious <span class="d-time">(0:15.5)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Corruption off Nether Scryer <span class="d-time">(0:10.7)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Greater Blessing of Wisdom off Luminoriel <span class="d-time">(0:10.7)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Mark of the Wild off Brdn <span class="d-time">(0:10.7)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Greater Blessing of Kings off Overwhelmz <span class="d-time">(0:10.7)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Greater Blessing of Salvation off Sanake <span class="d-time">(0:10.7)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Mark of the Wild off Zultide <span class="d-time">(0:10.7)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Vengeance off Haberefidem <span class="d-time">(0:10.7)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Prayer of Fortitude off Shardashian <span class="d-time">(0:10.7)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Greater Blessing of Salvation off Onlytwogends <span class="d-time">(0:10.7)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Greater Blessing of Wisdom off Fenerm <span class="d-time">(0:10.7)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Cone of Cold off Jabujabu <span class="d-time">(0:18.0)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Cone of Cold off Ledarious <span class="d-time">(0:21.0)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Frostbolt Volley off Ledarious <span class="d-time">(0:21.0)</span></li></ul></td>
             <td class="d-cell col-boss-deaths">none</td>
             <td class="d-cell col-trash-deaths"><ul class="d-list"><li>Melee (Bloodwarder Legionnaire) <span class="d-time">(0:00.0)</span></li></ul></td>
@@ -1923,7 +1917,6 @@
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num" data-sort="26">26</td>
             <td class="num col-boss-deaths deaths-nonzero" data-sort="1">1</td>
@@ -1982,7 +1975,6 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Frost Nova off Sanake <span class="d-time">(2:21.7)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Frost Nova off Luminoriel <span class="d-time">(2:21.7)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Frost Nova off Neiveh <span class="d-time">(2:21.7)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Frost Nova off Overwhelmz <span class="d-time">(2:21.7)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Frost Nova off Haberefidem <span class="d-time">(2:21.7)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Frost Nova off Ledarious <span class="d-time">(2:21.7)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Frost Nova off Healn <span class="d-time">(2:21.7)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Arcane Brilliance off Dotsnotalotz <span class="d-time">(0:10.8)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Versatility off Luminoriel <span class="d-time">(0:10.8)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Greater Blessing of Salvation off Onlytwogends <span class="d-time">(0:10.8)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Prayer of Fortitude off Fatesmasher <span class="d-time">(0:10.8)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Arcane Brilliance off Neiveh <span class="d-time">(0:10.8)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Greater Blessing of Salvation off Dabink <span class="d-time">(0:10.8)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Greater Blessing of Salvation off Shardashian <span class="d-time">(0:10.8)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Gift of the Wild off Jabujabu <span class="d-time">(0:10.8)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Omen of Clarity off Blazzedd <span class="d-time">(0:10.8)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Greater Blessing of Salvation off Tugsnhugs <span class="d-time">(0:10.8)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Cone of Cold off Zarre <span class="d-time">(0:24.9)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Cone of Cold off Shardashian <span class="d-time">(0:24.9)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Cone of Cold off Zultide <span class="d-time">(0:24.9)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Cone of Cold off Subsi <span class="d-time">(0:24.9)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Cone of Cold off Saltyswings <span class="d-time">(0:24.9)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Cone of Cold off Ledarious <span class="d-time">(0:24.9)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Shadow Word: Pain off Zavage <span class="d-time">(0:14.1)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Shadow Word: Pain off Dabink <span class="d-time">(0:28.6)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Shadow Word: Pain off Dotsnotalotz <span class="d-time">(0:27.5)</span></li></ul></td>
             <td class="d-cell col-boss-deaths"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Unknown <span class="d-time">(4:12.5)</span></li></ul></td>
             <td class="d-cell col-trash-deaths">none</td>
@@ -2004,7 +1996,6 @@
             <td class="num " data-sort="5" title="Al&#39;ar &times;2&#10;Void Reaver &times;2&#10;High Astromancer Solarian">5</td>
             <td class="num " data-sort="2" title="Al&#39;ar&#10;Kael&#39;thas Sunstrider">2</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="5">5</td>
             <td class="num" data-sort="2">2</td>
             <td class="num col-boss-deaths deaths-zero" data-sort="0">0</td>
@@ -2068,7 +2059,6 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Haste <span class="d-time">(0:06.6)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Haste <span class="d-time">(2:49.0)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Haste <span class="d-time">(0:27.3)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Healing Potion <span class="d-time">(4:10.6)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span>Haste <span class="d-time">(0:03.2)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Master Healthstone <span class="d-time">(3:15.1)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Master Healthstone <span class="d-time">(5:07.1)</span></li></ul></td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span>Holy Smite on Solarium Priest <span class="d-time">(1:18.9)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span>Great Heal on Solarium Priest <span class="d-time">(1:52.5)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Fireball on Kael&#39;thas Sunstrider <span class="d-time">(4:45.8)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Fireball on Kael&#39;thas Sunstrider <span class="d-time">(6:31.9)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Fireball on Kael&#39;thas Sunstrider <span class="d-time">(7:19.2)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Mind Control off Healn <span class="d-time">(5:10.9)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Mind Control off Subsi <span class="d-time">(5:36.4)</span></li></ul></td>
             <td class="d-cell col-boss-deaths">none</td>
@@ -2091,7 +2081,6 @@
             <td class="num " data-sort="6" title="Al&#39;ar &times;2&#10;Void Reaver &times;3&#10;High Astromancer Solarian">6</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="5">5</td>
             <td class="num" data-sort="3">3</td>
             <td class="num col-boss-deaths deaths-nonzero" data-sort="1">1</td>
@@ -2155,7 +2144,6 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Haste <span class="d-time">(0:10.2)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Haste <span class="d-time">(3:32.8)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Haste <span class="d-time">(0:14.3)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Haste <span class="d-time">(2:19.7)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Haste <span class="d-time">(4:21.6)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span>Haste <span class="d-time">(0:06.3)</span></li></ul></td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span>Great Heal on Solarium Priest <span class="d-time">(1:24.7)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Fireball on Kael&#39;thas Sunstrider <span class="d-time">(4:55.1)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Fireball on Kael&#39;thas Sunstrider <span class="d-time">(5:08.9)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Fireball on Kael&#39;thas Sunstrider <span class="d-time">(5:31.5)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Fireball on Kael&#39;thas Sunstrider <span class="d-time">(7:30.8)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Deadly Poison VII off Subsi <span class="d-time">(5:46.0)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Bloodlust off Nether Scryer <span class="d-time">(0:14.5)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Crimson Hand Blood Knight <span class="d-time">(0:34.4)</span></li></ul></td>
             <td class="d-cell col-boss-deaths"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(4:36.7)</span></li></ul></td>
@@ -2178,7 +2166,6 @@
             <td class="num " data-sort="1" title="Al&#39;ar">1</td>
             <td class="num " data-sort="1" title="Al&#39;ar">1</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="6">6</td>
             <td class="num" data-sort="4">4</td>
             <td class="num col-boss-deaths deaths-nonzero" data-sort="1">1</td>
@@ -2236,7 +2223,6 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Destruction <span class="d-time">(0:10.1)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Master Healthstone <span class="d-time">(3:23.1)</span></li></ul></td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span>Holy Smite on Solarium Priest <span class="d-time">(1:39.1)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Frostbolt on Staff of Disintegration <span class="d-time">(2:02.3)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Fireball on Kael&#39;thas Sunstrider <span class="d-time">(4:58.3)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Fireball on Kael&#39;thas Sunstrider <span class="d-time">(5:36.2)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Fireball on Kael&#39;thas Sunstrider <span class="d-time">(6:27.2)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Fireball on Kael&#39;thas Sunstrider <span class="d-time">(7:37.3)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Fire Shield off Tempest Falconer <span class="d-time">(0:37.1)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Fire Shield off Tempest Falconer <span class="d-time">(0:38.6)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Fire Shield off Tempest Falconer <span class="d-time">(0:47.8)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Fire Shield off Tempest Falconer <span class="d-time">(1:26.2)</span></li></ul></td>
             <td class="d-cell col-boss-deaths"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(3:30.9)</span></li></ul></td>
@@ -2259,7 +2245,6 @@
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num col-boss-deaths deaths-zero" data-sort="0">0</td>
@@ -2319,7 +2304,6 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell col-boss-deaths">none</td>
             <td class="d-cell col-trash-deaths">none</td>
             <td></td>
@@ -2340,7 +2324,6 @@
             <td class="num " data-sort="1" title="Al&#39;ar">1</td>
             <td class="num " data-sort="1" title="Void Reaver">1</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num col-boss-deaths deaths-zero" data-sort="0">0</td>
@@ -2400,7 +2383,6 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell col-boss-deaths">none</td>
             <td class="d-cell col-trash-deaths">none</td>
             <td></td>
@@ -2421,7 +2403,6 @@
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num " data-sort="2" title="Kael&#39;thas Sunstrider &times;2">2</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="1">1</td>
             <td class="num" data-sort="15">15</td>
             <td class="num col-boss-deaths deaths-nonzero" data-sort="1">1</td>
@@ -2485,7 +2466,6 @@
             <td class="d-cell">none</td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Master Healthstone <span class="d-time">(3:03.0)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Master Healthstone <span class="d-time">(7:09.7)</span></li></ul></td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Fireball on Kael&#39;thas Sunstrider <span class="d-time">(5:15.1)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Renew off Kael&#39;thas Sunstrider <span class="d-time">(5:10.3)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Crimson Hand Battle Mage <span class="d-time">(0:03.6)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Crimson Hand Battle Mage <span class="d-time">(0:19.1)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Crimson Hand Battle Mage <span class="d-time">(0:17.9)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Crimson Hand Battle Mage <span class="d-time">(0:21.2)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Crimson Hand Battle Mage <span class="d-time">(0:27.8)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Crimson Hand Blood Knight <span class="d-time">(0:32.6)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Crimson Hand Blood Knight <span class="d-time">(0:35.7)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Crimson Hand Blood Knight <span class="d-time">(0:37.3)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Power Infusion off Crimson Hand Inquisitor <span class="d-time">(0:16.9)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Crimson Hand Inquisitor <span class="d-time">(0:16.9)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Crimson Hand Centurion <span class="d-time">(0:23.5)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Crimson Hand Blood Knight <span class="d-time">(0:38.8)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Crimson Hand Inquisitor <span class="d-time">(0:10.1)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Renew off Crimson Hand Inquisitor <span class="d-time">(0:11.6)</span></li></ul></td>
             <td class="d-cell col-boss-deaths"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(3:38.9)</span></li></ul></td>
@@ -2508,7 +2488,6 @@
             <td class="num " data-sort="4" title="Al&#39;ar &times;2&#10;Void Reaver&#10;High Astromancer Solarian">4</td>
             <td class="num " data-sort="2" title="Void Reaver&#10;Kael&#39;thas Sunstrider">2</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num col-boss-deaths deaths-nonzero" data-sort="1">1</td>
@@ -2568,7 +2547,6 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell col-boss-deaths"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(1:48.9)</span></li></ul></td>
             <td class="d-cell col-trash-deaths"><ul class="d-list"><li>Arcane Flurry (Crimson Hand Centurion) <span class="d-time">(0:29.9)</span></li><li>Melee (Crimson Hand Centurion) <span class="d-time">(0:29.8)</span></li></ul></td>
             <td></td>
@@ -2589,7 +2567,6 @@
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num " data-sort="1" title="High Astromancer Solarian">1</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num col-boss-deaths deaths-nonzero" data-sort="2">2</td>
@@ -2649,7 +2626,6 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell col-boss-deaths"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Melee (Al&#39;ar) <span class="d-time">(2:31.2)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(3:14.8)</span></li></ul></td>
             <td class="d-cell col-trash-deaths">none</td>
             <td></td>
@@ -2670,7 +2646,6 @@
             <td class="num zero-count" data-sort="0" title="">0</td>
             <td class="num " data-sort="2" title="Void Reaver&#10;Kael&#39;thas Sunstrider">2</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num col-boss-deaths deaths-nonzero" data-sort="2">2</td>
@@ -2730,7 +2705,6 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell col-boss-deaths"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Melee (Al&#39;ar) <span class="d-time">(2:29.2)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(1:56.5)</span></li></ul></td>
             <td class="d-cell col-trash-deaths">none</td>
             <td></td>
@@ -2751,7 +2725,6 @@
             <td class="num " data-sort="5" title="Al&#39;ar &times;2&#10;Void Reaver&#10;High Astromancer Solarian&#10;Kael&#39;thas Sunstrider">5</td>
             <td class="num " data-sort="1" title="Kael&#39;thas Sunstrider">1</td>
             <td class="num " data-sort="4" title="Al&#39;ar&#10;Void Reaver&#10;High Astromancer Solarian&#10;Kael&#39;thas Sunstrider">4</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="1">1</td>
             <td class="num" data-sort="0">0</td>
             <td class="num col-boss-deaths deaths-nonzero" data-sort="2">2</td>
@@ -2815,7 +2788,6 @@
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Haste <span class="d-time">(0:22.6)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Haste <span class="d-time">(2:43.6)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Haste <span class="d-time">(0:16.9)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span>Haste <span class="d-time">(0:09.2)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Haste <span class="d-time">(5:19.7)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Master Healthstone <span class="d-time">(7:10.5)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Super Sapper Charge <span class="d-time">(0:22.8)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Super Sapper Charge <span class="d-time">(0:17.6)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span>Super Sapper Charge <span class="d-time">(0:09.5)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Super Sapper Charge <span class="d-time">(5:19.8)</span></li></ul></td>
-            <td class="d-cell">none</td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Unknown on Crimson Hand Battle Mage <span class="d-time">(0:07.8)</span></li></ul></td>
             <td class="d-cell">none</td>
             <td class="d-cell col-boss-deaths"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Pounding (Void Reaver) <span class="d-time">(3:34.7)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Nether Beam (Kael&#39;thas Sunstrider) <span class="d-time">(7:11.6)</span></li></ul></td>
@@ -2838,7 +2810,6 @@
             <td class="num " data-sort="5" title="Al&#39;ar&#10;Void Reaver &times;2&#10;High Astromancer Solarian&#10;Kael&#39;thas Sunstrider">5</td>
             <td class="num " data-sort="1" title="Kael&#39;thas Sunstrider">1</td>
             <td class="num zero-count" data-sort="0" title="">0</td>
-            <td class="num" data-sort="0" title="">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num" data-sort="0">0</td>
             <td class="num col-boss-deaths deaths-nonzero" data-sort="1">1</td>
@@ -2904,7 +2875,6 @@
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
             <td class="d-cell">none</td>
-            <td class="d-cell">none</td>
             <td class="d-cell col-boss-deaths"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Nether Beam (Kael&#39;thas Sunstrider) <span class="d-time">(7:11.6)</span></li></ul></td>
             <td class="d-cell col-trash-deaths"><ul class="d-list"><li>Melee (Bloodwarder Vindicator) <span class="d-time">(0:08.2)</span></li><li>Melee (Jabujabu) <span class="d-time">(0:15.0)</span></li></ul></td>
             <td></td>
@@ -2924,8 +2894,7 @@
             <td class="consume" data-sort="1.0" title="Off-hand weapon buff active on every boss this week"><span class="frac good">4/4</span></td>
             <td class="num " data-sort="7" title="Al&#39;ar &times;2&#10;Void Reaver&#10;High Astromancer Solarian&#10;Kael&#39;thas Sunstrider &times;3">7</td>
             <td class="num " data-sort="1" title="Kael&#39;thas Sunstrider">1</td>
-            <td class="num " data-sort="5" title="Al&#39;ar&#10;Void Reaver&#10;High Astromancer Solarian&#10;Kael&#39;thas Sunstrider &times;2">5</td>
-            <td class="num" data-sort="1" title="Super Sapper Charge">1</td>
+            <td class="num " data-sort="6" title="Al&#39;ar&#10;Void Reaver&#10;High Astromancer Solarian&#10;Kael&#39;thas Sunstrider &times;2&#10;Trash">6</td>
             <td class="num" data-sort="2">2</td>
             <td class="num" data-sort="2">2</td>
             <td class="num col-boss-deaths deaths-nonzero" data-sort="1">1</td>
@@ -2988,8 +2957,7 @@
 </div></td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Haste <span class="d-time">(0:20.4)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Haste <span class="d-time">(3:37.3)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Haste <span class="d-time">(0:24.3)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span>Haste <span class="d-time">(0:16.7)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Haste <span class="d-time">(2:07.9)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Haste <span class="d-time">(5:10.2)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Haste <span class="d-time">(7:19.4)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Master Healthstone <span class="d-time">(7:06.8)</span></li></ul></td>
-            <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Super Sapper Charge <span class="d-time">(0:22.9)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Super Sapper Charge <span class="d-time">(0:39.3)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span>Super Sapper Charge <span class="d-time">(0:19.6)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Super Sapper Charge <span class="d-time">(2:10.4)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Super Sapper Charge <span class="d-time">(7:39.6)</span></li></ul></td>
-            <td class="d-cell"><ul class="d-list"><li>Super Sapper Charge <span class="d-time">(1:13.7)</span></li></ul></td>
+            <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/730-icon.jpg" alt="" title="Al&#39;ar" loading="lazy"></span>Super Sapper Charge <span class="d-time">(0:22.9)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Super Sapper Charge <span class="d-time">(0:39.3)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/732-icon.jpg" alt="" title="High Astromancer Solarian" loading="lazy"></span>Super Sapper Charge <span class="d-time">(0:19.6)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Super Sapper Charge <span class="d-time">(2:10.4)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Super Sapper Charge <span class="d-time">(7:39.6)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Super Sapper Charge <span class="d-time">(1:13.7)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Fireball on Kael&#39;thas Sunstrider <span class="d-time">(5:21.3)</span></li><li><span class="d-boss"><span class="boss-ic-fallback" title="Trash">Trash</span></span>Great Heal on Solarium Priest <span class="d-time">(0:02.0)</span></li></ul></td>
             <td class="d-cell"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Mind Control off Percepion <span class="d-time">(5:04.8)</span></li><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/733-icon.jpg" alt="" title="Kael&#39;thas Sunstrider" loading="lazy"></span>Mind Control off Overwhelmz <span class="d-time">(5:32.7)</span></li></ul></td>
             <td class="d-cell col-boss-deaths"><ul class="d-list"><li><span class="d-boss"><img class="boss-ic" src="https://assets.rpglogs.com/img/warcraft/bosses/731-icon.jpg" alt="" title="Void Reaver" loading="lazy"></span>Melee (Void Reaver) <span class="d-time">(2:57.1)</span></li></ul></td>
@@ -7931,7 +7899,7 @@ Strength">&#10003;</span></td>
 
   <footer class="page-footer">
     <div class="footer-meta">
-      <span>Generated 8/31/2026 04:25 UTC by JabuJabu&#39;s TBC Raid Analyzer.</span>
+      <span>Generated 8/31/2026 04:37 UTC by JabuJabu&#39;s TBC Raid Analyzer.</span>
       <span>History: <code>data/history/adhoc/players.json</code> &middot; window: <code>best_ever</code></span>
     </div>
     <div class="footer-credit">Created by <a href="https://github.com/jabujabu92" target="_blank" rel="noopener">jabujabu</a></div>
