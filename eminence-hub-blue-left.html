@@ -139,11 +139,13 @@
      up against .parse-value instead, which is the bug the user caught
      2026-09-09 (screenshot: gold side's Top 5 had rank far from name;
      blue side, which never inherits text-align: right, already looked
-     right). Single-stat rows (.single-stat-label) deliberately keep
-     inheriting the side's text-align -- that bunching (label+count
-     together on whichever side is "inward") is the look the user
-     confirmed as correct on BOTH sides, this override is scoped to
-     parse-row only. */
+     right). Single-stat rows get their OWN explicit text-align: right
+     on .single-stat-label instead (see that rule) rather than
+     inheriting the side's text-align -- inheriting looked right on
+     Maize/side-left by coincidence, but was wrong on Blue/side-right
+     (user caught this too, same day) -- so both this rule and that one
+     end up forcing the same direction regardless of which side either
+     block happens to render on. */
   .parse-row { text-align: left; }
   .parse-row {
     display: flex; align-items: center; gap: .6rem; background: var(--panel); border: 1px solid var(--border);
@@ -165,7 +167,14 @@
     display: flex; align-items: center; gap: .7rem; background: var(--panel); border: 1px solid var(--border);
     border-radius: 8px; padding: .6rem .9rem; width: 100%;
   }
-  .single-stat-label { font-size: .78rem; color: var(--muted); flex: 1; }
+  /* text-align: right always, on BOTH sides -- .side-right's inherited
+     text-align: left otherwise left-aligns this flex:1 box's text,
+     bunching the label against the NAME instead of the count (user
+     caught this 2026-09-09: correct on Maize/side-left by coincidence
+     of inheriting text-align: right already, wrong on Blue/side-right).
+     Forcing right here makes the label always sit next to the count,
+     matching Maize's look on both sides. */
+  .single-stat-label { font-size: .78rem; color: var(--muted); flex: 1; text-align: right; }
   .single-stat-name { font-weight: 700; font-size: .9rem; }
   .single-stat-count { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 700; font-size: .9rem; }
   .single-stat.empty .single-stat-name { color: var(--muted); font-weight: 400; font-style: italic; }
@@ -284,13 +293,13 @@
           
           <div class="single-stat">
             <span class="single-stat-name"><a class="cls-priest name-link" href="https://fresh.warcraftlogs.com/reports/Y7mhXC9g1aN8ryfc?fight=14&amp;type=healing&amp;graphperf=1&amp;source=20" target="_blank" rel="noopener" title="Open Dirtybööty's WarcraftLogs character page">Dirtybööty</a></span>
-            <span class="single-stat-label"></span>
+            <span class="single-stat-label">total healing</span>
             <span class="single-stat-count">1,418,267</span>
           </div>
           
           <div class="single-stat">
             <span class="single-stat-name"><a class="cls-priest name-link" href="https://fresh.warcraftlogs.com/reports/Y7mhXC9g1aN8ryfc?fight=14&amp;type=healing&amp;graphperf=1&amp;source=6" target="_blank" rel="noopener" title="Open Highc's WarcraftLogs character page">Highc</a></span>
-            <span class="single-stat-label"></span>
+            <span class="single-stat-label">total healing</span>
             <span class="single-stat-count">1,308,245</span>
           </div>
           
@@ -303,7 +312,7 @@
         
         <div class="single-stat">
           <span class="single-stat-name"><a class="cls-mage name-link" href="https://fresh.warcraftlogs.com/character/us/nightslayer/sneachta" target="_blank" rel="noopener" title="Open Sneachta's WarcraftLogs character page">Sneachta</a></span>
-          <span class="single-stat-label"></span>
+          <span class="single-stat-label">interrupts</span>
           <span class="single-stat-count">14</span>
         </div>
         
@@ -314,7 +323,7 @@
         
         <div class="single-stat">
           <span class="single-stat-name"><a class="cls-priest name-link" href="https://fresh.warcraftlogs.com/character/us/nightslayer/victan" target="_blank" rel="noopener" title="Open Victan's WarcraftLogs character page">Victan</a></span>
-          <span class="single-stat-label"></span>
+          <span class="single-stat-label">dispels</span>
           <span class="single-stat-count">78</span>
         </div>
         
@@ -325,7 +334,7 @@
         
         <div class="single-stat">
           <span class="single-stat-name"><a class="cls-paladin name-link" href="https://fresh.warcraftlogs.com/character/us/nightslayer/brdnpal" target="_blank" rel="noopener" title="Open Brdnpal's WarcraftLogs character page">Brdnpal</a></span>
-          <span class="single-stat-label"></span>
+          <span class="single-stat-label">items used</span>
           <span class="single-stat-count">64</span>
         </div>
         
@@ -396,13 +405,13 @@
           
           <div class="single-stat">
             <span class="single-stat-name"><a class="cls-priest name-link" href="https://fresh.warcraftlogs.com/reports/xVabzRmqFdQ8jk3r?fight=114&amp;type=healing&amp;graphperf=1&amp;source=258" target="_blank" rel="noopener" title="Open Shaquilo's WarcraftLogs character page">Shaquilo</a></span>
-            <span class="single-stat-label"></span>
+            <span class="single-stat-label">total healing</span>
             <span class="single-stat-count">2,874,242</span>
           </div>
           
           <div class="single-stat">
             <span class="single-stat-name"><a class="cls-shaman name-link" href="https://fresh.warcraftlogs.com/reports/xVabzRmqFdQ8jk3r?fight=114&amp;type=healing&amp;graphperf=1&amp;source=247" target="_blank" rel="noopener" title="Open Vinch's WarcraftLogs character page">Vinch</a></span>
-            <span class="single-stat-label"></span>
+            <span class="single-stat-label">total healing</span>
             <span class="single-stat-count">2,427,141</span>
           </div>
           
@@ -415,7 +424,7 @@
         
         <div class="single-stat">
           <span class="single-stat-name"><a class="cls-shaman name-link" href="https://fresh.warcraftlogs.com/character/us/nightslayer/tugsnhugs" target="_blank" rel="noopener" title="Open Tugsnhugs's WarcraftLogs character page">Tugsnhugs</a></span>
-          <span class="single-stat-label"></span>
+          <span class="single-stat-label">interrupts</span>
           <span class="single-stat-count">174</span>
         </div>
         
@@ -426,7 +435,7 @@
         
         <div class="single-stat">
           <span class="single-stat-name"><a class="cls-paladin name-link" href="https://fresh.warcraftlogs.com/character/us/nightslayer/swtrwthrx" target="_blank" rel="noopener" title="Open Swtrwthrx's WarcraftLogs character page">Swtrwthrx</a></span>
-          <span class="single-stat-label"></span>
+          <span class="single-stat-label">dispels</span>
           <span class="single-stat-count">520</span>
         </div>
         
@@ -437,7 +446,7 @@
         
         <div class="single-stat">
           <span class="single-stat-name"><a class="cls-warrior name-link" href="https://fresh.warcraftlogs.com/character/us/nightslayer/jabujabu" target="_blank" rel="noopener" title="Open Jabujabu's WarcraftLogs character page">Jabujabu</a></span>
-          <span class="single-stat-label"></span>
+          <span class="single-stat-label">items used</span>
           <span class="single-stat-count">156</span>
         </div>
         
