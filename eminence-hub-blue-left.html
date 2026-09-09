@@ -20,7 +20,26 @@
     --blue: #4d8dd4;
     --blue-dim: #274a70;
     --good: #5fb489;
+    /* Real Blizzard TBC class colors -- same 9 values (only 9 classes
+       exist on this ruleset) already used on the report pages
+       themselves (templates/report.html.jinja's own --cls-* block) --
+       kept in sync with that file rather than re-guessed here. */
+    --cls-druid: #ff7d0a;
+    --cls-warlock: #9482c9;
+    --cls-warrior: #c79c6e;
+    --cls-priest: #f2f0ea;
+    --cls-mage: #69ccf0;
+    --cls-shaman: #2e9bd6;
+    --cls-paladin: #f58cba;
+    --cls-hunter: #abd473;
+    --cls-rogue: #fff569;
   }
+  .cls-druid { color: var(--cls-druid); } .cls-warlock { color: var(--cls-warlock); }
+  .cls-warrior { color: var(--cls-warrior); } .cls-priest { color: var(--cls-priest); }
+  .cls-mage { color: var(--cls-mage); } .cls-shaman { color: var(--cls-shaman); }
+  .cls-paladin { color: var(--cls-paladin); } .cls-hunter { color: var(--cls-hunter); } .cls-rogue { color: var(--cls-rogue); }
+  .name-link { text-decoration: none; }
+  .name-link:hover { text-decoration: underline; }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body {
@@ -46,13 +65,15 @@
     text-shadow: 0 4px 30px rgba(0,0,0,.6);
   }
   .hub-subtitle { color: var(--muted); font-size: 1rem; margin: .6rem 0 0; letter-spacing: .04em; }
-  .hub-nav { margin-top: 1.2rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-  .hub-nav a {
-    color: var(--text); text-decoration: none; font-size: .85rem; font-weight: 600;
+  .hub-nav { margin-top: 1.2rem; display: flex; justify-content: center; gap: 1.4rem; flex-wrap: wrap; }
+  .nav-update { display: flex; flex-direction: column; align-items: center; gap: .35rem; }
+  .nav-btn {
+    font: inherit; color: var(--text); font-size: .85rem; font-weight: 600;
     border: 1px solid var(--border); border-radius: 999px; padding: .45rem 1.1rem;
-    background: var(--panel); transition: border-color .15s ease;
+    background: var(--panel); cursor: pointer; transition: border-color .15s ease;
   }
-  .hub-nav a:hover { border-color: var(--gold); }
+  .nav-btn:hover { border-color: var(--gold); }
+  .nav-btn:disabled { cursor: default; opacity: .55; }
 
   .split { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 0; position: relative; }
   .split::after {
@@ -78,15 +99,15 @@
   .team-tag { color: var(--muted); font-size: .82rem; letter-spacing: .06em; text-transform: uppercase; }
 
   .update-btn {
-    font: inherit; font-weight: 700; font-size: .85rem; letter-spacing: .02em;
+    display: inline-block; font: inherit; font-weight: 700; font-size: .85rem; letter-spacing: .02em;
     background: linear-gradient(135deg, var(--accent), var(--accent-dim));
-    color: #0c0e11; border: none; border-radius: 8px; padding: .7rem 1.4rem;
+    color: #0c0e11; text-decoration: none; text-align: center;
+    border: none; border-radius: 8px; padding: .7rem 1.4rem;
     cursor: pointer; margin-top: .9rem; box-shadow: 0 6px 20px -6px var(--accent);
     transition: transform .12s ease, box-shadow .12s ease;
   }
   .update-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 26px -8px var(--accent); }
-  .update-btn:disabled { cursor: default; opacity: .55; transform: none; box-shadow: none; }
-  .update-status { font-size: .78rem; color: var(--muted); margin-top: .5rem; min-height: 1.1em; }
+  .update-status { font-size: .78rem; color: var(--muted); margin-top: .1rem; min-height: 1.1em; }
 
   .stat-block { width: 100%; max-width: 30rem; margin-top: 2.2rem; }
   .stat-block h2 {
@@ -102,6 +123,18 @@
   .side-left .stat-block h2 { flex-direction: row-reverse; }
 
   .parse-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .4rem; width: 100%; }
+  /* Name always sits immediately after the rank, left-anchored inside
+     its own flex box, on BOTH sides -- .side-left's text-align: right
+     would otherwise push .parse-name (flex: 1) all the way over to butt
+     up against .parse-value instead, which is the bug the user caught
+     2026-09-09 (screenshot: gold side's Top 5 had rank far from name;
+     blue side, which never inherits text-align: right, already looked
+     right). Single-stat rows (.single-stat-label) deliberately keep
+     inheriting the side's text-align -- that bunching (label+count
+     together on whichever side is "inward") is the look the user
+     confirmed as correct on BOTH sides, this override is scoped to
+     parse-row only. */
+  .parse-row { text-align: left; }
   .parse-row {
     display: flex; align-items: center; gap: .6rem; background: var(--panel); border: 1px solid var(--border);
     border-radius: 8px; padding: .5rem .8rem;
@@ -126,6 +159,10 @@
   .single-stat-name { font-weight: 700; font-size: .9rem; }
   .single-stat-count { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 700; font-size: .9rem; }
   .single-stat.empty .single-stat-name { color: var(--muted); font-weight: 400; font-style: italic; }
+  .stat-stack { display: flex; flex-direction: column; gap: .4rem; width: 100%; }
+
+  .parse-name-wrap { display: flex; flex-direction: column; flex: 1; min-width: 0; gap: .05rem; }
+  .parse-boss { font-size: .68rem; color: var(--muted); font-weight: 400; }
 
   .perfect-week-list { display: flex; flex-wrap: wrap; gap: .4rem; justify-content: inherit; }
   .side-left .perfect-week-list { justify-content: flex-end; }
@@ -149,8 +186,21 @@
     <h1 class="hub-title">Eminence</h1>
     <p class="hub-subtitle">Raid Reports &middot; TBC Classic Anniversary</p>
     <nav class="hub-nav">
-      <a href="/maize_2026-W36.html">Latest Maize Report</a>
-      <a href="/blue_2026-W37.html">Latest Blue Report</a>
+      
+      <div class="nav-update">
+        <button class="nav-btn" type="button" data-team="blue" id="update-blue">
+          Update Blue Report
+        </button>
+        <div class="update-status" id="status-blue"></div>
+      </div>
+      
+      <div class="nav-update">
+        <button class="nav-btn" type="button" data-team="maize" id="update-maize">
+          Update Maize Report
+        </button>
+        <div class="update-status" id="status-maize"></div>
+      </div>
+      
     </nav>
   </header>
 
@@ -160,54 +210,89 @@
       <div class="team-header">
         <span class="team-tag">Week 37 - Phase 3</span>
         <h2 class="team-name">Blue</h2>
-        <button class="update-btn" type="button" data-team="blue" id="update-blue">
-          Update Blue Report
-        </button>
-        <div class="update-status" id="status-blue"></div>
+        <a class="update-btn" href="/blue_2026-W37.html">
+          Latest Blue Report
+        </a>
       </div>
 
       <div class="stat-block">
-        <h2>Top 5 Parses</h2>
+        <h2>Perfect Week</h2>
+        
+        <div class="perfect-week-list">
+          
+          <span class="perfect-chip"><span class="star">&#9733;</span><a class="cls-druid name-link" href="https://fresh.warcraftlogs.com/character/us/nightslayer/feners" target="_blank" rel="noopener" title="Open Feners's WarcraftLogs character page">Feners</a></span>
+          
+          <span class="perfect-chip"><span class="star">&#9733;</span><a class="cls-priest name-link" href="https://fresh.warcraftlogs.com/character/us/nightslayer/dirtyb%C3%B6%C3%B6ty" target="_blank" rel="noopener" title="Open Dirtybööty's WarcraftLogs character page">Dirtybööty</a></span>
+          
+          <span class="perfect-chip"><span class="star">&#9733;</span><a class="cls-priest name-link" href="https://fresh.warcraftlogs.com/character/us/nightslayer/victan" target="_blank" rel="noopener" title="Open Victan's WarcraftLogs character page">Victan</a></span>
+          
+        </div>
+        
+      </div>
+
+      <div class="stat-block">
+        <h2>Top 5 DPS Parses</h2>
         <ol class="parse-list">
           
           <li class="parse-row">
             <span class="parse-rank">#1</span>
-            <span class="parse-name">Sjz</span>
-            <span class="parse-value parse-rare">71.6%</span>
+            <span class="parse-name-wrap"><span class="parse-name"><a class="cls-warrior name-link" href="https://fresh.warcraftlogs.com/reports/Y7mhXC9g1aN8ryfc?fight=33&amp;type=damage-done&amp;graphperf=1&amp;source=22" target="_blank" rel="noopener" title="Open Bodunth's WarcraftLogs character page">Bodunth</a></span><span class="parse-boss">Shade of Akama</span></span>
+            <span class="parse-value parse-legendary">96.0%</span>
           </li>
           
           <li class="parse-row">
             <span class="parse-rank">#2</span>
-            <span class="parse-name">Feners</span>
-            <span class="parse-value parse-rare">70.4%</span>
+            <span class="parse-name-wrap"><span class="parse-name"><a class="cls-hunter name-link" href="https://fresh.warcraftlogs.com/reports/Y7mhXC9g1aN8ryfc?fight=53&amp;type=damage-done&amp;graphperf=1&amp;source=29" target="_blank" rel="noopener" title="Open Lionfang's WarcraftLogs character page">Lionfang</a></span><span class="parse-boss">Reliquary of Souls</span></span>
+            <span class="parse-value parse-legendary">95.0%</span>
           </li>
           
           <li class="parse-row">
             <span class="parse-rank">#3</span>
-            <span class="parse-name">Lionfang</span>
-            <span class="parse-value parse-rare">69.9%</span>
+            <span class="parse-name-wrap"><span class="parse-name"><a class="cls-druid name-link" href="https://fresh.warcraftlogs.com/reports/Y7mhXC9g1aN8ryfc?fight=33&amp;type=damage-done&amp;graphperf=1&amp;source=14" target="_blank" rel="noopener" title="Open Feners's WarcraftLogs character page">Feners</a></span><span class="parse-boss">Shade of Akama</span></span>
+            <span class="parse-value parse-epic">93.0%</span>
           </li>
           
           <li class="parse-row">
             <span class="parse-rank">#4</span>
-            <span class="parse-name">Obleak</span>
-            <span class="parse-value parse-rare">68.8%</span>
+            <span class="parse-name-wrap"><span class="parse-name"><a class="cls-warrior name-link" href="https://fresh.warcraftlogs.com/reports/Y7mhXC9g1aN8ryfc?fight=46&amp;type=damage-done&amp;graphperf=1&amp;source=7" target="_blank" rel="noopener" title="Open Sjz's WarcraftLogs character page">Sjz</a></span><span class="parse-boss">Teron Gorefiend</span></span>
+            <span class="parse-value parse-epic">92.0%</span>
           </li>
           
           <li class="parse-row">
             <span class="parse-rank">#5</span>
-            <span class="parse-name">Mià</span>
-            <span class="parse-value parse-rare">61.9%</span>
+            <span class="parse-name-wrap"><span class="parse-name"><a class="cls-warlock name-link" href="https://fresh.warcraftlogs.com/reports/Y7mhXC9g1aN8ryfc?fight=53&amp;type=damage-done&amp;graphperf=1&amp;source=23" target="_blank" rel="noopener" title="Open Gameisaids's WarcraftLogs character page">Gameisaids</a></span><span class="parse-boss">Reliquary of Souls</span></span>
+            <span class="parse-value parse-epic">91.0%</span>
           </li>
           
         </ol>
       </div>
 
       <div class="stat-block">
+        <h2>Top Healing Done</h2>
+        
+        <div class="stat-stack">
+          
+          <div class="single-stat">
+            <span class="single-stat-name"><a class="cls-priest name-link" href="https://fresh.warcraftlogs.com/reports/Y7mhXC9g1aN8ryfc?fight=14&amp;type=healing&amp;graphperf=1&amp;source=20" target="_blank" rel="noopener" title="Open Dirtybööty's WarcraftLogs character page">Dirtybööty</a></span>
+            <span class="single-stat-label">total healing</span>
+            <span class="single-stat-count">1,418,267</span>
+          </div>
+          
+          <div class="single-stat">
+            <span class="single-stat-name"><a class="cls-priest name-link" href="https://fresh.warcraftlogs.com/reports/Y7mhXC9g1aN8ryfc?fight=14&amp;type=healing&amp;graphperf=1&amp;source=6" target="_blank" rel="noopener" title="Open Highc's WarcraftLogs character page">Highc</a></span>
+            <span class="single-stat-label">total healing</span>
+            <span class="single-stat-count">1,308,245</span>
+          </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="stat-block">
         <h2>Top Interrupter</h2>
         
         <div class="single-stat">
-          <span class="single-stat-name">Sneachta</span>
+          <span class="single-stat-name"><a class="cls-mage name-link" href="https://fresh.warcraftlogs.com/character/us/nightslayer/sneachta" target="_blank" rel="noopener" title="Open Sneachta's WarcraftLogs character page">Sneachta</a></span>
           <span class="single-stat-label">interrupts</span>
           <span class="single-stat-count">14</span>
         </div>
@@ -218,7 +303,7 @@
         <h2>Top Dispeler</h2>
         
         <div class="single-stat">
-          <span class="single-stat-name">Victan</span>
+          <span class="single-stat-name"><a class="cls-priest name-link" href="https://fresh.warcraftlogs.com/character/us/nightslayer/victan" target="_blank" rel="noopener" title="Open Victan's WarcraftLogs character page">Victan</a></span>
           <span class="single-stat-label">dispels</span>
           <span class="single-stat-count">78</span>
         </div>
@@ -229,24 +314,9 @@
         <h2>Top Item User</h2>
         
         <div class="single-stat">
-          <span class="single-stat-name">Brdnpal</span>
+          <span class="single-stat-name"><a class="cls-paladin name-link" href="https://fresh.warcraftlogs.com/character/us/nightslayer/brdnpal" target="_blank" rel="noopener" title="Open Brdnpal's WarcraftLogs character page">Brdnpal</a></span>
           <span class="single-stat-label">items used</span>
           <span class="single-stat-count">64</span>
-        </div>
-        
-      </div>
-
-      <div class="stat-block">
-        <h2>Perfect Week</h2>
-        
-        <div class="perfect-week-list">
-          
-          <span class="perfect-chip"><span class="star">&#9733;</span>Feners</span>
-          
-          <span class="perfect-chip"><span class="star">&#9733;</span>Dirtybööty</span>
-          
-          <span class="perfect-chip"><span class="star">&#9733;</span>Victan</span>
-          
         </div>
         
       </div>
@@ -256,54 +326,85 @@
       <div class="team-header">
         <span class="team-tag">Week 36 - Phase 3</span>
         <h2 class="team-name">Maize</h2>
-        <button class="update-btn" type="button" data-team="maize" id="update-maize">
-          Update Maize Report
-        </button>
-        <div class="update-status" id="status-maize"></div>
+        <a class="update-btn" href="/maize_2026-W36.html">
+          Latest Maize Report
+        </a>
       </div>
 
       <div class="stat-block">
-        <h2>Top 5 Parses</h2>
+        <h2>Perfect Week</h2>
+        
+        <div class="perfect-week-list">
+          
+          <span class="perfect-chip"><span class="star">&#9733;</span><a class="cls-warrior name-link" href="https://fresh.warcraftlogs.com/character/us/nightslayer/dugrumog" target="_blank" rel="noopener" title="Open Dugrumog's WarcraftLogs character page">Dugrumog</a></span>
+          
+        </div>
+        
+      </div>
+
+      <div class="stat-block">
+        <h2>Top 5 DPS Parses</h2>
         <ol class="parse-list">
           
           <li class="parse-row">
             <span class="parse-rank">#1</span>
-            <span class="parse-name">Jaymoe</span>
-            <span class="parse-value parse-epic">85.2%</span>
+            <span class="parse-name-wrap"><span class="parse-name"><a class="cls-shaman name-link" href="https://fresh.warcraftlogs.com/reports/xVabzRmqFdQ8jk3r?fight=149&amp;type=damage-done&amp;graphperf=1&amp;source=245" target="_blank" rel="noopener" title="Open Guysham's WarcraftLogs character page">Guysham</a></span><span class="parse-boss">Teron Gorefiend</span></span>
+            <span class="parse-value parse-legendary">99.0%</span>
           </li>
           
           <li class="parse-row">
             <span class="parse-rank">#2</span>
-            <span class="parse-name">Valzin</span>
-            <span class="parse-value parse-epic">80.9%</span>
+            <span class="parse-name-wrap"><span class="parse-name"><a class="cls-warrior name-link" href="https://fresh.warcraftlogs.com/reports/xVabzRmqFdQ8jk3r?fight=100&amp;type=damage-done&amp;graphperf=1&amp;source=239" target="_blank" rel="noopener" title="Open Dugrumog's WarcraftLogs character page">Dugrumog</a></span><span class="parse-boss">Azgalor</span></span>
+            <span class="parse-value parse-legendary">99.0%</span>
           </li>
           
           <li class="parse-row">
             <span class="parse-rank">#3</span>
-            <span class="parse-name">Zarre</span>
-            <span class="parse-value parse-epic">78.8%</span>
+            <span class="parse-name-wrap"><span class="parse-name"><a class="cls-warlock name-link" href="https://fresh.warcraftlogs.com/reports/xVabzRmqFdQ8jk3r?fight=100&amp;type=damage-done&amp;graphperf=1&amp;source=250" target="_blank" rel="noopener" title="Open Jaymoe's WarcraftLogs character page">Jaymoe</a></span><span class="parse-boss">Azgalor</span></span>
+            <span class="parse-value parse-legendary">99.0%</span>
           </li>
           
           <li class="parse-row">
             <span class="parse-rank">#4</span>
-            <span class="parse-name">Percepion</span>
-            <span class="parse-value parse-epic">75.9%</span>
+            <span class="parse-name-wrap"><span class="parse-name"><a class="cls-druid name-link" href="https://fresh.warcraftlogs.com/reports/xVabzRmqFdQ8jk3r?fight=100&amp;type=damage-done&amp;graphperf=1&amp;source=235" target="_blank" rel="noopener" title="Open Drakonusdrui's WarcraftLogs character page">Drakonusdrui</a></span><span class="parse-boss">Azgalor</span></span>
+            <span class="parse-value parse-legendary">99.0%</span>
           </li>
           
           <li class="parse-row">
             <span class="parse-rank">#5</span>
-            <span class="parse-name">Brdn</span>
-            <span class="parse-value parse-rare">72.0%</span>
+            <span class="parse-name-wrap"><span class="parse-name"><a class="cls-rogue name-link" href="https://fresh.warcraftlogs.com/reports/xVabzRmqFdQ8jk3r?fight=114&amp;type=damage-done&amp;graphperf=1&amp;source=248" target="_blank" rel="noopener" title="Open Percepion's WarcraftLogs character page">Percepion</a></span><span class="parse-boss">High Warlord Naj&#39;entus</span></span>
+            <span class="parse-value parse-legendary">98.0%</span>
           </li>
           
         </ol>
       </div>
 
       <div class="stat-block">
+        <h2>Top Healing Done</h2>
+        
+        <div class="stat-stack">
+          
+          <div class="single-stat">
+            <span class="single-stat-name"><a class="cls-priest name-link" href="https://fresh.warcraftlogs.com/reports/xVabzRmqFdQ8jk3r?fight=114&amp;type=healing&amp;graphperf=1&amp;source=258" target="_blank" rel="noopener" title="Open Shaquilo's WarcraftLogs character page">Shaquilo</a></span>
+            <span class="single-stat-label">total healing</span>
+            <span class="single-stat-count">2,874,242</span>
+          </div>
+          
+          <div class="single-stat">
+            <span class="single-stat-name"><a class="cls-shaman name-link" href="https://fresh.warcraftlogs.com/reports/xVabzRmqFdQ8jk3r?fight=114&amp;type=healing&amp;graphperf=1&amp;source=247" target="_blank" rel="noopener" title="Open Vinch's WarcraftLogs character page">Vinch</a></span>
+            <span class="single-stat-label">total healing</span>
+            <span class="single-stat-count">2,427,141</span>
+          </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="stat-block">
         <h2>Top Interrupter</h2>
         
         <div class="single-stat">
-          <span class="single-stat-name">Tugsnhugs</span>
+          <span class="single-stat-name"><a class="cls-shaman name-link" href="https://fresh.warcraftlogs.com/character/us/nightslayer/tugsnhugs" target="_blank" rel="noopener" title="Open Tugsnhugs's WarcraftLogs character page">Tugsnhugs</a></span>
           <span class="single-stat-label">interrupts</span>
           <span class="single-stat-count">174</span>
         </div>
@@ -314,7 +415,7 @@
         <h2>Top Dispeler</h2>
         
         <div class="single-stat">
-          <span class="single-stat-name">Swtrwthrx</span>
+          <span class="single-stat-name"><a class="cls-paladin name-link" href="https://fresh.warcraftlogs.com/character/us/nightslayer/swtrwthrx" target="_blank" rel="noopener" title="Open Swtrwthrx's WarcraftLogs character page">Swtrwthrx</a></span>
           <span class="single-stat-label">dispels</span>
           <span class="single-stat-count">520</span>
         </div>
@@ -325,20 +426,9 @@
         <h2>Top Item User</h2>
         
         <div class="single-stat">
-          <span class="single-stat-name">Jabujabu</span>
+          <span class="single-stat-name"><a class="cls-warrior name-link" href="https://fresh.warcraftlogs.com/character/us/nightslayer/jabujabu" target="_blank" rel="noopener" title="Open Jabujabu's WarcraftLogs character page">Jabujabu</a></span>
           <span class="single-stat-label">items used</span>
           <span class="single-stat-count">156</span>
-        </div>
-        
-      </div>
-
-      <div class="stat-block">
-        <h2>Perfect Week</h2>
-        
-        <div class="perfect-week-list">
-          
-          <span class="perfect-chip"><span class="star">&#9733;</span>Dugrumog</span>
-          
         </div>
         
       </div>
@@ -363,7 +453,7 @@
   // silently doing nothing.
   var TRIGGER_ENDPOINT_BASE = "REPLACE_WITH_REAL_WORKER_URL"; // e.g. https://jabujabu-platform.<subdomain>.workers.dev/trigger-regen
 
-  document.querySelectorAll(".update-btn").forEach(function (btn) {
+  document.querySelectorAll(".nav-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
       var team = btn.getAttribute("data-team");
       var status = document.getElementById("status-" + team);
