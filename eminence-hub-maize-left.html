@@ -204,15 +204,6 @@
   .perfect-chip .star { color: var(--accent); font-size: .8rem; }
   .perfect-week-empty { color: var(--muted); font-size: .85rem; font-style: italic; }
 
-  .raid-days-list { display: flex; flex-wrap: wrap; gap: .4rem; justify-content: inherit; }
-  .side-left .raid-days-list { justify-content: flex-end; }
-  .raid-day-chip {
-    display: inline-flex; align-items: center; gap: .35rem; border-radius: 999px; padding: .3rem .8rem;
-    font-size: .82rem; font-weight: 600; border: 1px solid var(--border); background: var(--panel);
-  }
-  .raid-day-chip.done { border-color: var(--good); color: var(--good); }
-  .raid-day-chip.missed { color: var(--muted); }
-
   /* Bosses Left Standing -- same pill shape as Perfect Week's chips
      (this side of the page already has that "little rounded badge"
      visual language), icon styled after the report pages' own boss-pill
@@ -273,12 +264,9 @@
 
       <div class="stat-block">
         <h2>Raid Days This Week</h2>
-        <div class="raid-days-list">
-          
-          <span class="raid-day-chip done">✓ Friday</span>
-          
-          <span class="raid-day-chip missed">○ Sunday</span>
-          
+        <div class="single-stat">
+          <span class="single-stat-name">Raid Days</span>
+          <span class="single-stat-count">2</span>
         </div>
       </div>
 
@@ -430,12 +418,9 @@
 
       <div class="stat-block">
         <h2>Raid Days This Week</h2>
-        <div class="raid-days-list">
-          
-          <span class="raid-day-chip missed">○ Friday</span>
-          
-          <span class="raid-day-chip missed">○ Sunday</span>
-          
+        <div class="single-stat">
+          <span class="single-stat-name">Raid Days</span>
+          <span class="single-stat-count">1</span>
         </div>
       </div>
 
